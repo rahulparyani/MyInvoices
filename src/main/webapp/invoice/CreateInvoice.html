@@ -204,12 +204,12 @@
                       </div>
                       
 					   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="number" class="form-control" id="totalINR" name="totalINR" placeholder="Total INR">
+                        <input type="number" class="form-control" id="dummy" name="totalINR" placeholder="Dummy">
                         <span class="fa fa-inr form-control-feedback right" aria-hidden="true"></span>
                       </div>
                       
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="number" class="form-control" id="totalUSD" name="totalUSD" placeholder="Total USD">
+                        <input type="number" class="form-control" id="dummy2" name="totalUSD" placeholder="Dummy 2">
                         <span class="fa fa-usd form-control-feedback right" aria-hidden="true"></span>
                       </div>
 
@@ -333,7 +333,7 @@
     		console.log($("#exchangeRate").val())
     		var exchangeRate = $("#exchangeRate").val()
     		var inr = usd * exchangeRate;
-    		$("#amountINR-"+id[1]).val(inr)
+    		$("#amountINR-"+id[1]).val(inr).change()
     		
     	})
         
