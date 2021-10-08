@@ -26,6 +26,12 @@ public class InvoiceDetails {
 	
 	private double amountINR;
 	
+	private double sgst;
+	
+	private double cgst;
+	
+	private double igst;
+	
 	private String sacNumber;
 	
 	@ManyToOne
