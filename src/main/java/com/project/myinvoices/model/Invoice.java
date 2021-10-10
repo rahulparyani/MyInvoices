@@ -26,7 +26,7 @@ public class Invoice {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 	
 	private String invoiceNumber;
 	
@@ -41,13 +41,25 @@ public class Invoice {
 	//Port of Loading
 	private String pol;
 	
+	private String eta;
+	
 	//Port of Destination
 	private String pod;
+	
+	private String volume;
 	
 	//USD to INR
 	private double exchangeRate;
 	
-	private double totalINR;
+	private double totalcgst;
+	
+	private double totalsgst;
+	
+	private double totaligst;
+	
+	private double grossTotal;
+	
+	private double grandTotal;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference

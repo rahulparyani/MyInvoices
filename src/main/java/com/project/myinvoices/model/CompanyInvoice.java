@@ -10,5 +10,7 @@ public class CompanyInvoice {
 	private Invoice invoice;
 	
 	private Company company;
+	
+	private InvoiceDetails[] invoiceDetails;
 
 }

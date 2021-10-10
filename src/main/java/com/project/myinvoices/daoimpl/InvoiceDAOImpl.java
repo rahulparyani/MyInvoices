@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.myinvoices.dao.InvoiceDAO;
 import com.project.myinvoices.model.Invoice;
+import com.project.myinvoices.model.InvoiceDetails;
 
 @Repository
 public class InvoiceDAOImpl implements InvoiceDAO {
@@ -26,7 +27,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 	@Transactional
 	public void createInvoice(Invoice invoice) {
 		
-		logger.info("Enter create Invoice ----->" + invoice.getInvoiceNumber()+ ", " +invoice.getCompany().getName());
+		logger.info("Enter create Invoice ----->" + invoice.getInvoiceNumber()+ ", " +invoice.getCompany().getName()+ ", "+ invoice.getCompany().getId());
 		
 		entityManager.unwrap(Session.class).persist(invoice);
 		
@@ -64,6 +65,18 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 		
 		logger.info("Exit deleteInvoice");
 
+	}
+
+	@Transactional
+	@Override
+	public void saveInvoiceDetails(InvoiceDetails invoiceDetails) {
+		
+		logger.info("save invoiceDetails ---- >" + invoiceDetails.getDescription());
+		
+		entityManager.unwrap(Session.class).persist(invoiceDetails);
+		
+		logger.info("Exit saveInvoiceDetails");
+		
 	}
 
 }

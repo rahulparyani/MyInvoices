@@ -112,12 +112,13 @@
                   </div>
                   <div class="x_content">
                     
-                    <form class="form-horizontal form-label-left input_mask" data-parsley-validate>
+                    <form id="createInvoice" name="createInvoice" class="form-horizontal form-label-left input_mask" data-parsley-validate>
                     
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">To <span class="required">*</span></label>
                         <div class="col-md-7 col-xs-12">
-                          <input type="text" class="" id="companyName" required="required" name="name" placeholder="Company Name">
+                          <input type="text" class="" id="name" required="required" name="name" placeholder="Company Name">
+                          <input type="hidden" class="" id="id" required="required" name="id" placeholder="">
                         </div>
                       </div>
                       <div class="form-group">
@@ -150,6 +151,17 @@
                           <input type="text" class="form-control" id="gstNumber" name="gstNumber" readonly="readonly" placeholder="GST Number">
                         </div>
                       </div>
+                      
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="date" class="form-control has-feedback-left" id="date" name="date" placeholder="Date">
+                        <span class="fa fa-ship form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control" id="invoiceNumber" name="invoiceNumber" placeholder="Invoice Number">
+                        <span class="fa fa-hashtag form-control-feedback right" aria-hidden="true"></span>
+                      </div>
+                      
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="vessel" name="vessel" placeholder="Vessel">
                         <span class="fa fa-ship form-control-feedback left" aria-hidden="true"></span>
@@ -186,7 +198,7 @@
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="number" class="form-control" id="exchangeRate" name="exchangeRate" placeholder="Exchange Rate">
+                        <input type="number" class="form-control" id="exchangeRate" step="0.001" name="exchangeRate" placeholder="Exchange Rate">
                         <span class="fa fa-inr form-control-feedback right" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -196,23 +208,23 @@
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12 col-md-offset-3">Gross Total:</label>
                         <div class="col-md-2 col-xs-12">
-                          <input type="number" class="form-control" id="grossTotal" name="grossTotal" readonly="readonly" placeholder="Gross Total">
+                          <input type="number" class="form-control" id="grossTotal" name="grossTotal" step="0.001" readonly="readonly" placeholder="Gross Total">
                         </div>
                       </div>
                       <div id="taxBlock"></div>
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12 col-md-offset-3">Grand Total:</label>
                         <div class="col-md-2 col-xs-12">
-                          <input type="number" class="form-control" id="grandTotal" name="address" readonly="readonly" placeholder="Grand Total">
+                          <input type="number" class="form-control" id="grandTotal" name="grandTotal" step="0.001" readonly="readonly" placeholder="Grand Total">
                         </div>
                       </div>
 					  
                       <div class="ln_solid"></div>
                       <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-5">
+                        <div class="col-md-6 col-sm-9 col-xs-12 col-md-offset-5">
                           <button type="button" class="btn btn-primary">Cancel</button>
 						   <button class="btn btn-primary" type="reset">Reset</button>
-                          <button type="submit" class="btn btn-success">Submit</button>
+                          <button type="submit" id="submitInvoice" class="btn btn-success">Submit</button>
                         </div>
                       </div>
 

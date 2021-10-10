@@ -1,12 +1,13 @@
 package com.project.myinvoices.model;
 
-import javax.persistence.Entity;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-
+import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,5 +32,8 @@ public class Company {
 	private String country;
 	
 	private String gstNumber;
+
+	//@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+	//private List<Invoice> invoices;
 	
 }

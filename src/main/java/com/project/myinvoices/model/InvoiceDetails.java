@@ -18,7 +18,7 @@ public class InvoiceDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 	
 	private String description;
 	
@@ -28,9 +28,15 @@ public class InvoiceDetails {
 	
 	private double sgst;
 	
+	private double sgstRate;
+	
 	private double cgst;
 	
+	private double cgstRate;
+	
 	private double igst;
+	
+	private double igstRate;
 	
 	private String sacNumber;
 	
