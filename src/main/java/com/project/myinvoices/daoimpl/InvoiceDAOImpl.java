@@ -22,7 +22,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 	
 	@Autowired
 	private EntityManager entityManager;
-
+	
 	@Override
 	@Transactional
 	public void createInvoice(Invoice invoice) {
@@ -41,7 +41,11 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 		
 		logger.info("Enter listInvoices()");
 		
-		return new ArrayList<Invoice>(entityManager.unwrap(Session.class).createQuery("from Invoice").list());
+		ArrayList<Invoice> invoices = new ArrayList<Invoice>(entityManager.unwrap(Session.class).createQuery("from Invoice").list());
+		
+		logger.info("Company Information" + invoices.get(0).getCompany().getName());
+		
+		return invoices;
 		
 	}
 

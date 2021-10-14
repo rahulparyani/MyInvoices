@@ -2,6 +2,8 @@ package com.project.myinvoices.controllers;
 
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.project.myinvoices.dao.InvoiceDAO;
 import com.project.myinvoices.model.CompanyInvoice;
 import com.project.myinvoices.model.Invoice;
 import com.project.myinvoices.service.InvoiceService;
@@ -41,6 +42,17 @@ public class InvoiceController {
 	{	
 		invoiceService.saveInvoice(companyInvoice);
 		return "{\"msg\":\"Success\"}";
+	}
+	
+	@GetMapping("/listInvoices")
+	@ResponseBody
+	public ArrayList<Invoice> listInvoices()
+	{
+		ArrayList<Invoice> list = invoiceService.listInvoices();
+		
+		System.out.println(list.get(0).getCompany().getName());
+		
+		return list;
 	}
 	
 }

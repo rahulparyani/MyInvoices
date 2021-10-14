@@ -55,8 +55,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public ArrayList<Invoice> listInvoices() {
-		// TODO Auto-generated method stub
-		return null;
+		return invoiceDAO.listInvoices();
 	}
 
 }

@@ -16,5 +16,5 @@ public interface InvoiceDAO {
 	public void deleteInvoice(Invoice invoice);
 	
 	public void saveInvoiceDetails(InvoiceDetails invoiceDetails);
-
+	
 }

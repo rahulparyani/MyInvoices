@@ -203,6 +203,7 @@ $(document).ready(function() {
 			var invoiceDetails = $("#invoiceDetails").DataTable({
 				dom: 'Bfrtip',
 				"searching": false,
+				"paging": false,
 				buttons: [
 					{
 						text: 'Add Row',
@@ -241,6 +242,7 @@ $(document).ready(function() {
 			var invoiceDetails = $("#invoiceDetails").DataTable({
 				dom: 'Bfrtip',
 				"searching": false,
+				"paging": false,
 				buttons: [
 					{
 						text: 'Add Row',
