@@ -48,11 +48,7 @@ public class InvoiceController {
 	@ResponseBody
 	public ArrayList<Invoice> listInvoices()
 	{
-		ArrayList<Invoice> list = invoiceService.listInvoices();
-		
-		System.out.println(list.get(0).getCompany().getName());
-		
-		return list;
+		return invoiceService.listInvoices();
 	}
 	
 }

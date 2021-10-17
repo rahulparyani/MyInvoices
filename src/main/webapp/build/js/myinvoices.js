@@ -403,4 +403,229 @@ $(document).ready(function() {
 		})
 
 	})
+	
+	var invoiceDatasource = new kendo.data.DataSource({
+		transport: {
+			read: {
+				url: "/invoice/listInvoices"
+			},
+		},
+		pageSize: 20,
+		schema: {
+			model: {
+				id: "id",
+				fields: {
+					blNumber: {},
+					cntNumber: {},
+					date: {},
+					eta: {},
+					exchangeRate: {},
+					grandTotal: {},
+					grossTotal: {},
+					invoiceNumber: {},
+					pod:{},
+					pol: {},
+					totalcgst: {},
+					totalsgst: {},
+					totaligst: {},
+					vessel: {},
+					volume: {},
+					invoiceDetails:[
+						{id: {}},
+						{description: {}},
+						{amountINR: {}},
+						{amountUSD: {}},
+						{cgst: {}},
+						{cgstRate: {}},
+						{sgst: {}},
+						{sgstRate: {}},
+						{igst: {}},
+						{igstRate: {}},
+						{sacNumber: {}},
+					],
+					company : {
+						id:{},
+						name:{},
+						address:{},
+						city:{},
+						state:{},
+						country:{},
+						gstNumber:{}
+					}
+				}
+			}
+		}
+	})
+	
+	$("#invoiceGrid").kendoGrid({
+		dataSource:invoiceDatasource,
+		editable: "popup",
+            toolbar: ["excel", "pdf", "search"],
+            pageable: {
+                alwaysVisible: true,
+                pageSizes: [5, 10, 20, 100]
+            },
+            sortable: true,
+			columnMenu: true,
+            navigatable: true,
+            resizable: true,
+            reorderable: true,
+            groupable: true,
+            filterable: true,
+			columns: [
+                {
+                    field: "invoiceNumber",
+                    title: "Invoice Number"
+                },
+                {
+                    field: "company.name",
+                    title: "Name"
+                },
+				{
+					field: "date",
+					title: "Date"
+				},
+				{
+                    field: "blNumber",
+                    title: "BL Number",
+					hidden: true
+                },
+				{
+                    field: "cntNumber",
+                    title: "Container Number",
+					hidden: true
+                },
+				{
+                    field: "exchangeRate",
+                    title: "Exchange Rate",
+					hidden: true
+                },
+                {
+                    field: "grossTotal",
+                    title: "Gross Total"
+                },
+                {
+                    field: "totalcgst",
+                    title: "Total CGST"
+                },
+                {
+                    field: "totalsgst",
+                    title: "Total SGST",
+                },
+                {
+                    field: "grandTotal",
+                    title: "Grand Total",
+                },
+				{
+					command:{text:"View Invoice", click: viewInvoiceDetails}
+				},
+                {command: ["edit", "destroy"], title: "Actions", width: "170px"}
+            ]
+	})
+	
+	function viewInvoiceDetails(e){
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"))
+		var template = kendo.template($("#template").html());
+		var window = $("#invoiceWindow").kendoWindow({
+			title: "Invoice Details",
+			modal: true,
+			resizable: true,
+			width:900,
+			height:500,
+			scrollable: true,
+			actions: ["Close"]
+		}).data("kendoWindow")
+		window.content(template(dataItem))
+		window.maximize().open()
+		if(dataItem.company.state == "Gujarat"){
+			init_grid(dataItem)			
+		}
+		else{
+			init_IgstGrid(dataItem)
+		}
+		
+	}
+	
+	function init_grid(dataItem)
+	{
+		console.log("called init_grid" + dataItem.invoiceDetails)
+		console.log(dataItem.invoiceDetails)
+		$("#detailsGrid").kendoGrid({
+			dataSource: dataItem.invoiceDetails,
+			columns: [
+                {
+                    field: "description",
+                    title: "Description"
+                },
+                {
+                    field: "sacNumber",
+                    title: "SAC Number"
+                },
+				{
+                    field: "sgstRate",
+                    title: "SGST Rate %"
+                },
+				{
+                    field: "sgst",
+                    title: "SGST"
+                },
+				{
+                    field: "cgstRate",
+                    title: "CGST Rate %"
+                },
+				{
+                    field: "cgst",
+                    title: "CGST"
+                },
+                {
+                    field: "amountUSD",
+                    title: "Amount USD"
+                },
+                {
+                    field: "amountINR",
+                    title: "Amount INR"
+                }
+            ]
+			
+		})
+	}
+	
+	function init_IgstGrid(dataItem)
+	{
+		console.log("called init_igstgrid" + dataItem.invoiceDetails)
+		console.log(dataItem.invoiceDetails)
+		$("#detailsGrid").kendoGrid({
+			dataSource: dataItem.invoiceDetails,
+			columns: [
+                {
+                    field: "description",
+                    title: "Description"
+                },
+                {
+                    field: "sacNumber",
+                    title: "SAC Number"
+                },
+				{
+                    field: "igstRate",
+                    title: "IGST Rate %"
+                },
+				{
+                    field: "igst",
+                    title: "IGST"
+                },
+                {
+                    field: "amountUSD",
+                    title: "Amount USD"
+                },
+                {
+                    field: "amountINR",
+                    title: "Amount INR"
+                }
+            ]
+			
+		})
+	}
+
 })
+
