@@ -16,6 +16,8 @@
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 
+	<link href="../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     
@@ -86,14 +88,16 @@
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
-
+			<div class="page-title">
+              
+            </div>
             <div class="clearfix"></div>
 
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Plain Page</h2>
+                    <h2>Add SAC Details</h2>
                     <div class="clearfix"></div>
                   </div>
 					<div class="x_content">
@@ -171,6 +175,8 @@
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
     
+    <script src="../vendors/pnotify/dist/pnotify.js"></script>
+    
     <!-- Custom Theme Scripts -->
     
     <script src="../build/js/custom.min.js"></script>
@@ -196,8 +202,6 @@
 			sacNumbers.sgst = $('[name=sgst]').val();
 			sacNumbers.cgst = $('[name=cgst]').val();
 			sacNumbers.igst = $('[name=igst]').val();
-			
-			alert(JSON.stringify(sacNumbers));
 		
 			$.ajax({
                 type: 'post', // it's easier to read GET request parameters
@@ -209,11 +213,11 @@
                 },
                 data: JSON.stringify(sacNumbers), // look here!
                 success: function (data) {
-                    
+                	new PNotify({title: 'Operation Successful',text: 'SAC information saved sucessfully!',type: 'success',styling: 'bootstrap3'});
+					$("#sac-form")[0].reset();
                 },
                 error: function (data) {
-                    return false;
-                    alert('fail');
+                    new PNotify({title: 'Oh No!',text: 'Something went wrong, please see logs for more information!',type: 'error',styling: 'bootstrap3'});
                 }
             }); 			  
 		});

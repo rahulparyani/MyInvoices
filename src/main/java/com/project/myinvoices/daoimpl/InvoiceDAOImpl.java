@@ -56,22 +56,16 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
 	}
 
+	@Transactional
 	@Override
-	public void deleteInvoice(Invoice invoice) {
-
-		logger.info("Enter delete Invoice ----->" + invoice.getInvoiceNumber()+ ", " +invoice.getCompany().getName());
-
-		entityManager.unwrap(Session.class).remove(entityManager.merge(invoice));
-		
-		logger.info("Exit deleteInvoice");
-
+	public void deleteInvoice(int id) {
+		entityManager.unwrap(Session.class).remove(entityManager.merge(entityManager.find(Invoice.class, id)));
+		logger.info("Deleted Successfully!");
 	}
 
 	@Transactional
 	@Override
 	public void saveInvoiceDetails(InvoiceDetails invoiceDetails) {
-		
-		logger.info("save invoiceDetails ---- >" + invoiceDetails.getDescription());
 		
 		entityManager.unwrap(Session.class).persist(invoiceDetails);
 		

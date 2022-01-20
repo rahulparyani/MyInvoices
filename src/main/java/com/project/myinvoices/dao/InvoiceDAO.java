@@ -13,7 +13,7 @@ public interface InvoiceDAO {
 	
 	public void updateInvoice(Invoice invoice);
 	
-	public void deleteInvoice(Invoice invoice);
+	public void deleteInvoice(int id);
 	
 	public void saveInvoiceDetails(InvoiceDetails invoiceDetails);
 	

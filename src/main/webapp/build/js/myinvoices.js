@@ -69,7 +69,7 @@ $(document).ready(function() {
 		var usd = $("#amountUSD-" + id[1]).val();
 		var exchangeRate = $("#exchangeRate").val()
 		var inr = usd * exchangeRate;
-		$("#amountINR-" + id[1]).val((inr).toFixed(3)).change()
+		$("#amountINR-" + id[1]).val((inr).toFixed(2)).change()
 
 	})
 
@@ -123,12 +123,12 @@ $(document).ready(function() {
 		var totaligst = 0;
 
 		if ($("#state").val() == "Gujarat") {
-			$("#sgst-" + id[1]).val((amountINR * (sgstRate / 100)).toFixed(3)).change()
-			$("#cgst-" + id[1]).val((amountINR * (cgstRate / 100)).toFixed(3)).change()
+			$("#sgst-" + id[1]).val((amountINR * (sgstRate / 100)).toFixed(2)).change()
+			$("#cgst-" + id[1]).val((amountINR * (cgstRate / 100)).toFixed(2)).change()
 		}
 		else {
 
-			$("#igst-" + id[1]).val((amountINR * (igstRate / 100)).toFixed(3)).change()
+			$("#igst-" + id[1]).val((amountINR * (igstRate / 100)).toFixed(2)).change()
 		}
 
 		$('.amountINR').each(function(index, element) {
@@ -163,9 +163,9 @@ $(document).ready(function() {
 
 		$('#totalcgst').val(totalcgst);
 
-		$('#totaligst').val(totaligst);
+		$('#totaligst').val(totaligst.toFixed(2));
 
-		$("#grossTotal").val((total).toFixed(3)).change()
+		$("#grossTotal").val((total).toFixed(2)).change()
 
 	})
 
@@ -185,7 +185,7 @@ $(document).ready(function() {
 			totaligst = parseFloat($("#totaligst").val())
 			grandTotal = grossTotal + totaligst;
 		}
-		$("#grandTotal").val((grandTotal).toFixed(3))
+		$("#grandTotal").val((grandTotal).toFixed(2))
 	}
 
 
@@ -216,8 +216,8 @@ $(document).ready(function() {
 								'<input type="text" readonly class="form-control sgst" id="sgst-' + count + '" name="sgst-' + count + '">',
 								'<input type="text" readonly class="form-control" id="cgstRate-' + count + '" name="cgstRate-' + count + '">',
 								'<input type="text" readonly class="form-control cgst" id="cgst-' + count + '" name="cgst-' + count + '">',
-								'<input type="number" step="0.001" class="form-control amountUSD" id="amountUSD-' + count + '" name="amountUSD-' + count + '">',
-								'<input type="number" step="0.001" class="form-control amountINR" id="amountINR-' + count + '" name="amountINR-' + count + '">'
+								'<input type="number" step="0.01" class="form-control amountUSD" id="amountUSD-' + count + '" name="amountUSD-' + count + '">',
+								'<input type="number" step="0.01" class="form-control amountINR" id="amountINR-' + count + '" name="amountINR-' + count + '">'
 							]).draw();
 							//initialize autocomplete on description
 							//console.log("inside datatable" + count)
@@ -253,8 +253,8 @@ $(document).ready(function() {
 								'<input type="text" class="form-control" id="sacNumber-' + count + '" name="sacNumber-' + count + '" >',
 								'<input type="text" readonly class="form-control" id="igstRate-' + count + '" name="igstRate-' + count + '">',
 								'<input type="text" readonly class="form-control igst" id="igst-' + count + '" name="igst-' + count + '">',
-								'<input type="number" step="0.001" class="form-control amountUSD" id="amountUSD-' + count + '" name="amountUSD-' + count + '">',
-								'<input type="number" step="0.001" class="form-control amountINR" id="amountINR-' + count + '" name="amountINR-' + count + '">'
+								'<input type="number" step="0.01" class="form-control amountUSD" id="amountUSD-' + count + '" name="amountUSD-' + count + '">',
+								'<input type="number" step="0.01" class="form-control amountINR" id="amountINR-' + count + '" name="amountINR-' + count + '">'
 							]).draw();
 							//initialize autocomplete on description
 							init_autoComplete(count);
@@ -372,17 +372,12 @@ $(document).ready(function() {
 			})
 			invoiceDetails.push(row)
 		})
-		console.log(company)
-		console.log(invoiceDetails)
-		console.log(invoice)
 		
 		var postData = {
 			company : company,
 			invoiceDetails: invoiceDetails,
 			invoice: invoice
 		}
-		
-		console.log(JSON.stringify(postData))
 		
 		$.ajax({
 			type: 'post',
@@ -394,11 +389,10 @@ $(document).ready(function() {
 			},
 			data: JSON.stringify(postData),
 			success: function(data){
-				
+				new PNotify({title: 'Operation Successful',text: 'Invoice saved and generated successfully!',type: 'success',styling: 'bootstrap3'});
 			},
 			error: function(data){
-				alert ('failed');
-				return false;
+				new PNotify({title: 'Oh No!',text: 'Something went wrong, please see logs for more information!',type: 'error',styling: 'bootstrap3'});
 			}
 		})
 
@@ -409,6 +403,48 @@ $(document).ready(function() {
 			read: {
 				url: "/invoice/listInvoices"
 			},
+			destroy: {
+				url: "/invoice/deleteInvoice",
+				type: "POST"
+			},
+			update:{
+				url: "/invoice/updateInvoice",
+				type: "POST",
+				contentType: "application/json",
+				complete: function(data){
+					console.log(data)
+				},
+			},
+			parameterMap: function(options, operation) {
+                    if (operation == "destroy" && options) {
+                        return {id: options.id};
+              		}
+					else if(operation == "update" && options)
+					{
+						var postData = new Object();
+						var invoice = new Object();
+						invoice.id = options.id;
+						invoice.date=options.date;
+						invoice.invoiceNumber=options.invoiceNumber;
+						invoice.vessel = options.vessel
+						invoice.eta = options.eta
+						invoice.volume = options.volume;
+						invoice.pol = options.pol;
+						invoice.pod = options.pod;
+						invoice.blNumber = options.blNumber;
+						invoice.cntNumber = options.cntNumber;
+						invoice.exchangeRate = options.exchangeRate;
+						invoice.grossTotal = options.grossTotal
+						invoice.totalsgst = options.totalsgst
+						invoice.totalcgst = options.totalcgst
+						invoice.totaligst = options.totaligst
+						invoice.grandTotal = options.grandTotal
+						postData.invoice = invoice;
+						postData.company = options.company;
+						postData.invoiceDetails = options.invoiceDetails;
+						return JSON.stringify(postData);
+					}
+            },
 		},
 		pageSize: 20,
 		schema: {
@@ -519,7 +555,8 @@ $(document).ready(function() {
 				{
 					command:{text:"View Invoice", click: viewInvoiceDetails}
 				},
-                {command: ["edit", "destroy"], title: "Actions", width: "170px"}
+                {command: [{text:"Edit"}, "destroy"], title: "Actions", width: "170px"}
+
             ]
 	})
 	
@@ -527,7 +564,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"))
 		var template = kendo.template($("#template").html());
-		var window = $("#invoiceWindow").kendoWindow({
+		var invoiceWindow = $("#invoiceWindow").kendoWindow({
 			title: "Invoice Details",
 			modal: true,
 			resizable: true,
@@ -536,8 +573,8 @@ $(document).ready(function() {
 			scrollable: true,
 			actions: ["Close"]
 		}).data("kendoWindow")
-		window.content(template(dataItem))
-		window.maximize().open()
+		invoiceWindow.content(template(dataItem))
+		invoiceWindow.maximize().open()
 		if(dataItem.company.state == "Gujarat"){
 			init_grid(dataItem)			
 		}
@@ -545,12 +582,18 @@ $(document).ready(function() {
 			init_IgstGrid(dataItem)
 		}
 		
+		$("#downloadInvoice").click(function(event){
+			console.log("Invoice ID" + dataItem.id)
+			var invoice = new Object();
+			invoice.id = dataItem.id;
+			invoice.invoiceNumber = dataItem.invoiceNumber;
+			invoice.date = dataItem.date;
+			window.open("http://localhost:8080/invoice/downloadInvoice?date=22-01-22&invoiceId=1")
+		})
 	}
-	
+		
 	function init_grid(dataItem)
 	{
-		console.log("called init_grid" + dataItem.invoiceDetails)
-		console.log(dataItem.invoiceDetails)
 		$("#detailsGrid").kendoGrid({
 			dataSource: dataItem.invoiceDetails,
 			columns: [
@@ -593,8 +636,6 @@ $(document).ready(function() {
 	
 	function init_IgstGrid(dataItem)
 	{
-		console.log("called init_igstgrid" + dataItem.invoiceDetails)
-		console.log(dataItem.invoiceDetails)
 		$("#detailsGrid").kendoGrid({
 			dataSource: dataItem.invoiceDetails,
 			columns: [
@@ -626,6 +667,5 @@ $(document).ready(function() {
 			
 		})
 	}
-
 })
 

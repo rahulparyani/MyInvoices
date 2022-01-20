@@ -3,6 +3,7 @@ package com.project.myinvoices.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -65,7 +66,7 @@ public class Invoice {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
-	@OneToMany(mappedBy = "invoice")
+	@OneToMany(mappedBy = "invoice", cascade = CascadeType.REMOVE)
 	@JsonManagedReference
 	private List<InvoiceDetails> invoiceDetails;
 	

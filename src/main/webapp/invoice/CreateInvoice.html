@@ -16,6 +16,8 @@
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 
+	<link href="../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     
@@ -197,7 +199,7 @@
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="number" class="form-control" id="exchangeRate" step="0.001" name="exchangeRate" placeholder="Exchange Rate">
+                        <input type="number" class="form-control" id="exchangeRate" step="0.01" name="exchangeRate" placeholder="Exchange Rate">
                         <span class="fa fa-inr form-control-feedback right" aria-hidden="true"></span>
                       </div>
                       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -207,14 +209,14 @@
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12 col-md-offset-3">Gross Total:</label>
                         <div class="col-md-2 col-xs-12">
-                          <input type="number" class="form-control" id="grossTotal" name="grossTotal" step="0.001" readonly="readonly" placeholder="Gross Total">
+                          <input type="number" class="form-control" id="grossTotal" name="grossTotal" step="0.01" readonly="readonly" placeholder="Gross Total">
                         </div>
                       </div>
                       <div id="taxBlock"></div>
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12 col-md-offset-3">Grand Total:</label>
                         <div class="col-md-2 col-xs-12">
-                          <input type="number" class="form-control" id="grandTotal" name="grandTotal" step="0.001" readonly="readonly" placeholder="Grand Total">
+                          <input type="number" class="form-control" id="grandTotal" name="grandTotal" step="0.01" readonly="readonly" placeholder="Grand Total">
                         </div>
                       </div>
 					  
@@ -261,6 +263,9 @@
     <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
     <!-- Custom Theme Scripts -->
+    
+    <script src="../vendors/pnotify/dist/pnotify.js"></script>
+    
     <script src="../build/js/custom.min.js"></script>
     
     <script src="../build/js/myinvoices.js"></script>

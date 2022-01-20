@@ -41,7 +41,7 @@ public class CompanyController {
 	{
 		logger.info("Calling save company");
 		companyService.addCompany(company);
-		return "Success";
+		return "{\"msg\":\"Success\"}";
 	}
 	
 	@GetMapping("/listCompanies")
@@ -58,7 +58,6 @@ public class CompanyController {
 	{
 		logger.info("Calling update company---->" + company.getName());
 		companyService.updateCompany(company);
-		
 		return company;
 	}
 	

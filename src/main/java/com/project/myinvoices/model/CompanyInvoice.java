@@ -1,5 +1,7 @@
 package com.project.myinvoices.model;
 
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Getter;
@@ -14,6 +16,6 @@ public class CompanyInvoice {
 	@JsonBackReference
 	private Company company;
 	
-	private InvoiceDetails[] invoiceDetails;
+	private ArrayList<InvoiceDetails> invoiceDetails;
 
 }

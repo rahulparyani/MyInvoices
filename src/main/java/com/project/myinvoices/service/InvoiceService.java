@@ -11,7 +11,7 @@ public interface InvoiceService {
 	
 	public void updateInvoice(CompanyInvoice companyInvoice);
 	
-	public void deleteInvoice(CompanyInvoice companyInvoice);
+	public void deleteInvoice(int id);
 	
 	public ArrayList<Invoice> listInvoices();
 	

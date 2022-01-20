@@ -107,8 +107,8 @@
             				<h2>#= company.name #, #= company.state # <span class="pull-right fa fa-calendar"> #= kendo.toString(date, "MM/dd/yyyy") #</span></h2>
             				<em>Invoice Number: #= invoiceNumber #</em>
             				<dl>
-								<dd>Address: #= company.address #</dd>
-                				<dd>City: #= company.city #</dd>
+								<dd>Address: #= company.address #<span class="pull-right"><button class="btn btn-success" id="downloadInvoice"><span class="fa fa-download"></span> Download Invoice</button></span></dd>
+                				<dd>City: #= company.city # </dd>
                 				<dd>GST : #= company.gstNumber #</dd>
             				</dl>
 							<table class="table table-striped table-bordered">
@@ -145,10 +145,14 @@
 									<td>Total IGST:</td><td>#= totaligst #</td>
 								</tr>
 								<tr>
+									<td>TDS:</td><td>#= ((grossTotal*2)/100) #</td>
+								</tr>
+								<tr>
 									<td>Grand Total:</td><td>#= grandTotal #</td>
 								</tr>
 							</table>
         				</div>
+
     				</script>
     				<style type="text/css">
     				    					

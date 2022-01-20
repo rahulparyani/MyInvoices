@@ -41,7 +41,7 @@ public class SacController {
 	public String addSac(@RequestBody SacNumbers sacNumbers)
 	{
 		sacNumbersService.addSac(sacNumbers);
-		return "Success";
+		return "{\"msg\":\"Success\"}";
 	}
 	
 	@PostMapping("/updateSac")
