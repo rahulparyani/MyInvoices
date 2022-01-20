@@ -2,9 +2,11 @@ package com.project.myinvoices.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,8 @@ public class InvoiceController {
 	@Autowired
 	private InvoiceService invoiceService;
 	
+	@Value("${output-location}")
+	private String basePath;
 	
 	@GetMapping("/createInvoice")
 	public String createInvoice()
@@ -73,12 +77,11 @@ public class InvoiceController {
 	
 	@GetMapping(path = "/downloadInvoice{date}")
 	@ResponseBody
-	public FileSystemResource downloadInvoice(@RequestParam("date") String date, @RequestParam("invoiceId") int id, HttpServletResponse response) {
-		System.out.println(date);
-		System.out.println(id);
+	public FileSystemResource downloadInvoice(@RequestParam("date") String date, @RequestParam("invoiceNumber") String invoiceNumber, HttpServletResponse response) {
+		String[] arr = date.split("-");
 		response.setContentType("application/pdf");
-		response.setHeader("Content-Disposition", "attachment; filename=23234.pdf");
-		return new FileSystemResource(new File("D:\\EclipseWorkspace1\\MyInvoices\\2022\\1\\6\\23234.pdf"));
+		response.setHeader("Content-Disposition", "attachment; filename=" + invoiceNumber + ".pdf");
+		return new FileSystemResource(new File(basePath+ arr[0]+ "/" + arr[1] + "/" + arr[2]+ "/" + invoiceNumber + ".pdf"));
 	}
 	
 }

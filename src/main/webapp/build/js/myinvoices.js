@@ -582,13 +582,13 @@ $(document).ready(function() {
 			init_IgstGrid(dataItem)
 		}
 		
-		$("#downloadInvoice").click(function(event){
+		$("#downloadInvoice").click(function(){
 			console.log("Invoice ID" + dataItem.id)
 			var invoice = new Object();
 			invoice.id = dataItem.id;
 			invoice.invoiceNumber = dataItem.invoiceNumber;
 			invoice.date = dataItem.date;
-			window.open("http://localhost:8080/invoice/downloadInvoice?date=22-01-22&invoiceId=1")
+			window.open("http://localhost:8080/invoice/downloadInvoice?date="+invoice.date+"&invoiceNumber="+invoice.invoiceNumber , "_blank")
 		})
 	}
 		

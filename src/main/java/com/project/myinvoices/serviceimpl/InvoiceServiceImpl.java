@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -104,7 +105,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			JasperPrint filledReport = JasperFillManager.fillReport(report, map, new JREmptyDataSource());
 			Calendar c = Calendar.getInstance();
 			c.setTime(companyInvoice.getInvoice().getDate());
-			String appendPath = String.valueOf(c.get(Calendar.YEAR)) +"/"+ String.valueOf(c.get(Calendar.MONTH)+1+"/"+c.get(Calendar.DATE)) ;
+			String appendPath = String.valueOf(c.get(Calendar.YEAR)) +"/"+new SimpleDateFormat("MM").format(c.getTime())+"/"+c.get(Calendar.DATE);
 			Files.createDirectories(Paths.get(path + appendPath));
 			JasperExportManager.exportReportToPdfFile(filledReport, path + appendPath+ "/"+ companyInvoice.getInvoice().getInvoiceNumber()+".pdf");
 		} catch (FileNotFoundException e) {
