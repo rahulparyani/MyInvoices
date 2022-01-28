@@ -548,14 +548,15 @@ $(document).ready(function() {
                     field: "totalsgst",
                     title: "Total SGST",
                 },
+				{
+                    field: "totaligst",
+                    title: "Total IGST",
+                },
                 {
                     field: "grandTotal",
                     title: "Grand Total",
                 },
-				{
-					command:{text:"View Invoice", click: viewInvoiceDetails}
-				},
-                {command: [{text:"Edit"}, "destroy"], title: "Actions", width: "170px"}
+                {command: [{text:"View", click: viewInvoiceDetails},{text:"Edit"}, "destroy"], title: "Actions", width: "230px"}
 
             ]
 	})

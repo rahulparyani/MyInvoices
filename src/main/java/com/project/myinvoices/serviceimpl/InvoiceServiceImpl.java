@@ -45,24 +45,24 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public void saveInvoice(CompanyInvoice companyInvoice) {
 		
-		logger.info("Enter saveInvioice -----> ");
+		logger.info("Enter saveInvoice -----> ");
 		Invoice invoice = companyInvoice.getInvoice();
 		invoice.setCompany(companyInvoice.getCompany());
 		logger.info("Calling createInvoice ---->");
-		//call DAO to save Invoice
-		invoiceDAO.createInvoice(invoice);
 		//remove header null values
 		companyInvoice.getInvoiceDetails().remove(0);
+		//call DAO to save Invoice
+		generateInvoice(companyInvoice);
+		invoiceDAO.createInvoice(invoice);
 		ArrayList<InvoiceDetails> invoiceDetails = companyInvoice.getInvoiceDetails();
 		//iterate over InvoiceDetails and save each InvoiceDetail
 		for (InvoiceDetails id: invoiceDetails)
 		{
 			logger.info("setInvoice --------> " + invoice.getInvoiceNumber());
 			logger.info("Description-----> "+id.getDescription());
+			id.setInvoice(invoice);
 			invoiceDAO.saveInvoiceDetails(id);
 		}
-		
-		generateInvoice(companyInvoice);
 	}
 
 	@Override

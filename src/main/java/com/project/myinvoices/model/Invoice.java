@@ -3,12 +3,12 @@ package com.project.myinvoices.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -66,7 +66,8 @@ public class Invoice {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
-	@OneToMany(mappedBy = "invoice", cascade = CascadeType.REMOVE)
+	@OneToMany
+	@JoinColumn(name = "invoice_id")
 	@JsonManagedReference
 	private List<InvoiceDetails> invoiceDetails;
 	
