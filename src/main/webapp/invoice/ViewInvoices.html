@@ -131,30 +131,56 @@
 							</table>
 							<div id="detailsGrid"></div>
 							<hr>
-							<table id="totalTable" class="table table-bordered table-striped pull-right">
-								<tr>
-									<td>Gross Total:</td><td>#= grossTotal #</td>
-								</tr>
-								<tr>
-									<td>Total SGST:</td><td>#= totalsgst #</td>
-								</tr>
-								<tr>
-									<td>Total CGST:</td><td>#= totalcgst #</td>
-								</tr>
-								<tr>
-									<td>Total IGST:</td><td>#= totaligst #</td>
-								</tr>
-								<tr>
-									<td>TDS:</td><td>#= ((grossTotal*2)/100) #</td>
-								</tr>
-								<tr>
-									<td>Grand Total:</td><td>#= grandTotal #</td>
-								</tr>
-							</table>
+							<div class="row">
+								<div class="column">
+								<table id="notes" class="table table-bordered table-striped pull-left">
+									<tr>
+										<td>Notes:</td>
+									</tr>
+									<tr height="180px">	
+										<td>#= notes #</td>
+									</tr>
+								</table>
+								</div>
+								<div class="column">
+								<table id="totalTable" class="table table-bordered table-striped pull-right">
+									<tr>
+										<td>Gross Total:</td><td>#= grossTotal #</td>
+									</tr>
+									<tr>	
+										<td>Total SGST:</td><td>#= totalsgst #</td>
+									</tr>
+									<tr>
+										<td>Total CGST:</td><td>#= totalcgst #</td>
+									</tr>
+									<tr>
+										<td>Total IGST:</td><td>#= totaligst #</td>
+									</tr>
+									<tr>
+										<td>TDS:</td><td>#= ((grossTotal*2)/100) #</td>
+									</tr>
+									<tr>
+										<td>Grand Total:</td><td>#= grandTotal #</td>
+									</tr>
+								</table>
+								</div>
+							</div>
         				</div>
 
     				</script>
     				<style type="text/css">
+    				
+    					.row{
+    						display: flex;
+    						margin-left:-5px;
+  							margin-right:-5px;
+    					}
+    					
+    					.column{
+    						flex: 50%;
+    						padding: 5px;
+    					}
+    					
     				    					
 				        #details-container
         				{
@@ -180,10 +206,6 @@
         				#details-container td
         				{
         					width:25%
-        				}
-        				#totalTable
-        				{
-        					width:50%
         				}
     				</style>
                   </div>

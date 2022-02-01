@@ -52,7 +52,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 		//remove header null values
 		companyInvoice.getInvoiceDetails().remove(0);
 		//call DAO to save Invoice
-		generateInvoice(companyInvoice);
 		invoiceDAO.createInvoice(invoice);
 		ArrayList<InvoiceDetails> invoiceDetails = companyInvoice.getInvoiceDetails();
 		//iterate over InvoiceDetails and save each InvoiceDetail
@@ -63,6 +62,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			id.setInvoice(invoice);
 			invoiceDAO.saveInvoiceDetails(id);
 		}
+		generateInvoice(companyInvoice);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			JasperPrint filledReport = JasperFillManager.fillReport(report, map, new JREmptyDataSource());
 			Calendar c = Calendar.getInstance();
 			c.setTime(companyInvoice.getInvoice().getDate());
-			String appendPath = String.valueOf(c.get(Calendar.YEAR)) +"/"+new SimpleDateFormat("MM").format(c.getTime())+"/"+c.get(Calendar.DATE);
+			String appendPath = String.valueOf(c.get(Calendar.YEAR)) +"/"+new SimpleDateFormat("MM").format(c.getTime())+"/"+new SimpleDateFormat("dd").format(c.getTime());
 			Files.createDirectories(Paths.get(path + appendPath));
 			JasperExportManager.exportReportToPdfFile(filledReport, path + appendPath+ "/"+ companyInvoice.getInvoice().getInvoiceNumber()+".pdf");
 		} catch (FileNotFoundException e) {

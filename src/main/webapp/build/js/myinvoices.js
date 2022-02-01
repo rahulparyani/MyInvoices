@@ -307,6 +307,7 @@ $(document).ready(function() {
 		invoice.totalcgst = $("#totalcgst").val()
 		invoice.totaligst = $("#totaligst").val()
 		invoice.grandTotal = $("#grandTotal").val()
+		invoice.notes = $("#notes").val()
 
 		var invoiceDetails = new Array();
 
@@ -392,7 +393,14 @@ $(document).ready(function() {
 				new PNotify({title: 'Operation Successful',text: 'Invoice saved and generated successfully!',type: 'success',styling: 'bootstrap3'});
 			},
 			error: function(data){
-				new PNotify({title: 'Oh No!',text: 'Something went wrong, please see logs for more information!',type: 'error',styling: 'bootstrap3'});
+				if (data.responseJSON.message.includes("invoice_number_UNIQUE"))
+				{
+					new PNotify({title: 'Oh No!',text: 'Invoice number already exists!' ,type: 'error',styling: 'bootstrap3'});					
+				}
+				else
+				{
+					new PNotify({title: 'Oh No!',text: 'Something went wrong, please see logs for more information!' ,type: 'error',styling: 'bootstrap3'});
+				}
 			}
 		})
 
@@ -589,7 +597,7 @@ $(document).ready(function() {
 			invoice.id = dataItem.id;
 			invoice.invoiceNumber = dataItem.invoiceNumber;
 			invoice.date = dataItem.date;
-			window.open("http://localhost:8080/invoice/downloadInvoice?date="+invoice.date+"&invoiceNumber="+invoice.invoiceNumber , "_blank")
+			window.open("http://" + location.host + "/invoice/downloadInvoice?date="+invoice.date+"&invoiceNumber="+invoice.invoiceNumber , "_blank")
 		})
 	}
 		

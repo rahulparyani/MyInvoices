@@ -3,6 +3,7 @@ package com.project.myinvoices.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,7 @@ public class Invoice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(unique = true)
 	private String invoiceNumber;
 	
 	private String vessel;
@@ -59,6 +61,9 @@ public class Invoice {
 	private double grossTotal;
 	
 	private double grandTotal;
+	
+	@Column(columnDefinition = "mediumtext")
+	private String notes;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Company company;

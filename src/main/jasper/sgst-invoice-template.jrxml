@@ -614,6 +614,19 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{Invoice}.getTotalcgst()]]></textFieldExpression>
 				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="1" y="52" width="268" height="82" isRemoveLineWhenBlank="true" uuid="57f0b34f-28d4-42ce-bfc4-1c020c23a68b">
+						<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<paragraph firstLineIndent="0" leftIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Notes:\n" + $P{Invoice}.getNotes()]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</detail>
