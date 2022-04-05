@@ -68,7 +68,18 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public void updateInvoice(CompanyInvoice companyInvoice) {
 		// TODO Auto-generated method stub
-
+		Invoice invoice = companyInvoice.getInvoice();
+		invoice.setCompany(companyInvoice.getCompany());
+		invoiceDAO.updateInvoice(invoice);
+		ArrayList<InvoiceDetails> invoiceDetails = companyInvoice.getInvoiceDetails();
+		//iterate over InvoiceDetails and save each InvoiceDetail
+		for (InvoiceDetails id: invoiceDetails)
+		{
+			logger.info("setInvoice --------> " + invoice.getInvoiceNumber());
+			logger.info("Description-----> "+id.getDescription());
+			id.setInvoice(invoice);
+			invoiceDAO.saveInvoiceDetails(id);
+		}
 	}
 
 	@Override
@@ -118,6 +129,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public Invoice getInvoiceById(int id) {
+		return invoiceDAO.getInvoiceById(id);
 	}
 
 }

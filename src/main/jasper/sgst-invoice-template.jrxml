@@ -112,6 +112,7 @@
 		<field name="amountINR" class="java.lang.Double"/>
 		<field name="cgstRate" class="java.lang.Double"/>
 		<field name="cgst" class="java.lang.Double"/>
+		<field name="amountUSD" class="java.lang.Double"/>
 	</subDataset>
 	<subDataset name="Dataset1" uuid="939cbb82-261f-4a35-981f-7abda2a99a4a">
 		<queryString>
@@ -131,7 +132,7 @@
 	<background>
 		<band height="822">
 			<rectangle>
-				<reportElement x="0" y="0" width="575" height="822" backcolor="#ECEBDD" uuid="72bc4e4b-72c0-4b62-b18a-affade5d2ad0"/>
+				<reportElement x="0" y="0" width="580" height="822" backcolor="#ECEBDD" uuid="72bc4e4b-72c0-4b62-b18a-affade5d2ad0"/>
 				<graphicElement>
 					<pen lineColor="#FFFFFF"/>
 				</graphicElement>
@@ -145,16 +146,13 @@
 	<title>
 		<band height="78">
 			<image>
-				<reportElement x="208" y="10" width="158" height="59" uuid="0b88b00d-fc90-4d10-89e9-9f594fee428b"/>
+				<reportElement x="208" y="14" width="158" height="59" uuid="0b88b00d-fc90-4d10-89e9-9f594fee428b"/>
 				<imageExpression><![CDATA["D:/EclipseWorkspace1/MyInvoices/src/main/jasper/company-name.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
-	<pageHeader>
-		<band height="19"/>
-	</pageHeader>
 	<detail>
-		<band height="347">
+		<band height="340">
 			<frame>
 				<reportElement x="11" y="0" width="558" height="190" uuid="e1d84a3d-bf68-4414-9928-fb5a2d124bbe"/>
 				<box>
@@ -348,11 +346,11 @@
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement x="10" y="200" width="559" height="140" uuid="0db48fb9-07e2-481e-910b-4ee5f54a1735">
+				<reportElement x="10" y="196" width="559" height="130" uuid="0db48fb9-07e2-481e-910b-4ee5f54a1735">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 				</reportElement>
 				<componentElement>
-					<reportElement mode="Transparent" x="0" y="0" width="559" height="40" backcolor="rgba(255, 255, 255, 0.0)" uuid="c74df996-49d1-44b9-9586-9d63ee0e3570">
+					<reportElement mode="Transparent" x="0" y="0" width="557" height="36" backcolor="rgba(255, 255, 255, 0.0)" uuid="c74df996-49d1-44b9-9586-9d63ee0e3570">
 						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 						<property name="com.jaspersoft.studio.table.style.table_header" value="Table 2_TH"/>
 						<property name="com.jaspersoft.studio.table.style.column_header" value="Table 2_CH"/>
@@ -362,52 +360,56 @@
 						<datasetRun subDataset="InvoiceDetails" uuid="81bad136-962c-4e5f-b50b-abf3cce97f00">
 							<dataSourceExpression><![CDATA[$P{InvoiceDetails}]]></dataSourceExpression>
 						</datasetRun>
-						<jr:column width="210" uuid="65d0cca4-0b0d-45ed-af60-c9bf530e5fc3">
+						<jr:column width="198" uuid="65d0cca4-0b0d-45ed-af60-c9bf530e5fc3">
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-							<jr:columnHeader style="Table 2_CH" height="20" rowSpan="1">
-								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.grid.JSSGridBagLayout"/>
+							<jr:columnHeader style="Table 2_CH" height="18" rowSpan="1">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<staticText>
-									<reportElement mode="Transparent" x="0" y="0" width="210" height="20" uuid="2c3fd712-72e7-490c-8a72-2fe24905f6be">
+									<reportElement mode="Transparent" x="0" y="0" width="190" height="18" uuid="2c3fd712-72e7-490c-8a72-2fe24905f6be">
 										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									</reportElement>
 									<textElement textAlignment="Left" verticalAlignment="Middle">
-										<font isBold="true" isUnderline="false"/>
+										<font size="8" isBold="false" isUnderline="false"/>
 										<paragraph leftIndent="5"/>
 									</textElement>
 									<text><![CDATA[Description]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="Table 2_TD" height="20">
+							<jr:detailCell style="Table 2_TD" height="18">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<textField textAdjust="ScaleFont">
-									<reportElement mode="Transparent" x="0" y="0" width="210" height="20" uuid="bae1bbdd-9e90-4310-845d-c493f323372d">
+									<reportElement mode="Transparent" x="0" y="0" width="198" height="18" uuid="bae1bbdd-9e90-4310-845d-c493f323372d">
 										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									</reportElement>
 									<textElement textAlignment="Left" verticalAlignment="Middle">
+										<font size="8"/>
 										<paragraph leftIndent="5"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="70" uuid="6f871eb6-2349-426c-b003-fbb941651e08">
+						<jr:column width="51" uuid="6f871eb6-2349-426c-b003-fbb941651e08">
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-							<jr:columnHeader style="Table 2_CH" height="20" rowSpan="1">
+							<jr:columnHeader style="Table 2_CH" height="18" rowSpan="1">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<staticText>
-									<reportElement mode="Transparent" x="0" y="0" width="70" height="20" uuid="b09c441a-e271-4ea2-8cad-9ed2b86a8466"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<reportElement mode="Transparent" x="0" y="0" width="51" height="18" uuid="b09c441a-e271-4ea2-8cad-9ed2b86a8466"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
 									<text><![CDATA[SAC Number]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="Table 2_TD" height="20">
+							<jr:detailCell style="Table 2_TD" height="18">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
-								<textField>
-									<reportElement mode="Transparent" x="0" y="0" width="70" height="20" uuid="8201a6de-6b3c-4f44-8fc5-f16c6015da72">
+								<textField textAdjust="StretchHeight">
+									<reportElement mode="Transparent" x="0" y="0" width="51" height="18" uuid="8201a6de-6b3c-4f44-8fc5-f16c6015da72">
 										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									</reportElement>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
 										<paragraph leftIndent="5"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{sacNumber}]]></textFieldExpression>
@@ -416,21 +418,24 @@
 						</jr:column>
 						<jr:column width="50" uuid="041275c3-cc0e-4535-86b0-37aa97bf713b">
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-							<jr:columnHeader style="Table 2_CH" height="20" rowSpan="1">
+							<jr:columnHeader style="Table 2_CH" height="18" rowSpan="1">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<staticText>
-									<reportElement mode="Transparent" x="0" y="0" width="50" height="20" uuid="b4335f9c-4d31-4fce-b5fa-f5e3442527a3"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<reportElement mode="Transparent" x="0" y="0" width="50" height="18" uuid="b4335f9c-4d31-4fce-b5fa-f5e3442527a3"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
 									<text><![CDATA[SGST Rate]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="Table 2_TD" height="20">
+							<jr:detailCell style="Table 2_TD" height="18">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<textField>
-									<reportElement mode="Transparent" x="0" y="0" width="50" height="20" uuid="138668fb-fc22-4284-8713-19723b2a6467">
+									<reportElement mode="Transparent" x="0" y="0" width="50" height="18" uuid="138668fb-fc22-4284-8713-19723b2a6467">
 										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									</reportElement>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
 										<paragraph leftIndent="5"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{sgstRate}]]></textFieldExpression>
@@ -439,21 +444,24 @@
 						</jr:column>
 						<jr:column width="50" uuid="06c039b5-e57a-464c-94af-b43e9056bf8e">
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
-							<jr:columnHeader style="Table 2_CH" height="20" rowSpan="1">
+							<jr:columnHeader style="Table 2_CH" height="18" rowSpan="1">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<staticText>
-									<reportElement mode="Transparent" x="0" y="0" width="50" height="20" uuid="3e0228cf-29be-40a5-9553-7ddd6a6bcef3"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<reportElement mode="Transparent" x="0" y="0" width="50" height="18" uuid="3e0228cf-29be-40a5-9553-7ddd6a6bcef3"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
 									<text><![CDATA[SGST]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="Table 2_TD" height="20">
+							<jr:detailCell style="Table 2_TD" height="18">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<textField>
-									<reportElement mode="Transparent" x="0" y="0" width="50" height="20" uuid="50c000a5-69fe-4ca6-acec-c5cee2935492">
+									<reportElement mode="Transparent" x="0" y="0" width="50" height="18" uuid="50c000a5-69fe-4ca6-acec-c5cee2935492">
 										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									</reportElement>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
 										<paragraph leftIndent="5"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{sgst}]]></textFieldExpression>
@@ -462,19 +470,22 @@
 						</jr:column>
 						<jr:column width="50" uuid="0e7b0a5c-c3eb-4123-bc54-d1644167a34e">
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
-							<jr:columnHeader style="Table 2_CH" height="20" rowSpan="1">
+							<jr:columnHeader style="Table 2_CH" height="18" rowSpan="1">
 								<staticText>
-									<reportElement mode="Transparent" x="0" y="0" width="50" height="20" uuid="34966957-b854-49c6-afa9-22502eb056c2"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<reportElement mode="Transparent" x="0" y="0" width="50" height="18" uuid="34966957-b854-49c6-afa9-22502eb056c2"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
 									<text><![CDATA[CGST Rate]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="Table 2_TD" height="20">
+							<jr:detailCell style="Table 2_TD" height="18">
 								<textField>
-									<reportElement mode="Transparent" x="0" y="0" width="50" height="20" uuid="d53a6fe7-420b-45bd-b54d-c18227ef9836">
+									<reportElement mode="Transparent" x="0" y="0" width="50" height="18" uuid="d53a6fe7-420b-45bd-b54d-c18227ef9836">
 										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									</reportElement>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
 										<paragraph leftIndent="5"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{cgstRate}]]></textFieldExpression>
@@ -483,42 +494,72 @@
 						</jr:column>
 						<jr:column width="50" uuid="cbbdc91d-028e-4865-bb38-9d4b8798bab3">
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
-							<jr:columnHeader style="Table 2_CH" height="20" rowSpan="1">
+							<jr:columnHeader style="Table 2_CH" height="18" rowSpan="1">
 								<staticText>
-									<reportElement mode="Transparent" x="0" y="0" width="50" height="20" uuid="3a302e43-628c-43ec-987a-fe3d37344ff1"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<reportElement mode="Transparent" x="0" y="0" width="50" height="18" uuid="3a302e43-628c-43ec-987a-fe3d37344ff1"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
 									<text><![CDATA[CGST]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="Table 2_TD" height="20">
+							<jr:detailCell style="Table 2_TD" height="18">
 								<textField>
-									<reportElement mode="Transparent" x="0" y="0" width="50" height="20" uuid="6afa3168-17a5-412d-8486-447abc846e3d">
+									<reportElement mode="Transparent" x="0" y="0" width="50" height="18" uuid="6afa3168-17a5-412d-8486-447abc846e3d">
 										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									</reportElement>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
 										<paragraph leftIndent="5"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{cgst}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="79" uuid="684b3a1e-20c2-4573-9803-53f7c369140e">
+						<jr:column width="55" uuid="684b3a1e-20c2-4573-9803-53f7c369140e">
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
-							<jr:columnHeader style="Table 2_CH" height="20" rowSpan="1">
+							<jr:columnHeader style="Table 2_CH" height="18" rowSpan="1">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<staticText>
-									<reportElement mode="Transparent" x="0" y="0" width="79" height="20" uuid="da4667e9-aa2b-4468-98a5-0c9c229156fd"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<text><![CDATA[Amount INR]]></text>
+									<reportElement mode="Transparent" x="0" y="0" width="55" height="18" uuid="da4667e9-aa2b-4468-98a5-0c9c229156fd"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
+									<text><![CDATA[Amount USD]]></text>
 								</staticText>
 							</jr:columnHeader>
-							<jr:detailCell style="Table 2_TD" height="20">
+							<jr:detailCell style="Table 2_TD" height="18">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<textField>
-									<reportElement mode="Transparent" x="0" y="0" width="79" height="20" uuid="adaf65df-4e35-4e59-b470-0888651c4628">
+									<reportElement mode="Transparent" x="0" y="0" width="55" height="18" uuid="9a953033-8e8a-4945-aaa7-7745586cb5ac">
 										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 									</reportElement>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
+										<paragraph leftIndent="5"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{amountUSD}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="55" uuid="ae4f1e92-8d64-4d9c-a62b-a40547a66673">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+							<jr:columnHeader style="Table 2_CH" height="18" rowSpan="1">
+								<staticText>
+									<reportElement mode="Transparent" x="0" y="0" width="55" height="18" uuid="594ef4b3-e35f-433e-9993-3fb79550c044"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
+									</textElement>
+									<text><![CDATA[Amount INR]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 2_TD" height="18">
+								<textField>
+									<reportElement mode="Transparent" x="0" y="0" width="55" height="18" uuid="adaf65df-4e35-4e59-b470-0888651c4628">
+										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="8"/>
 										<paragraph leftIndent="5"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{amountINR}]]></textFieldExpression>
@@ -528,22 +569,22 @@
 					</jr:table>
 				</componentElement>
 				<rectangle>
-					<reportElement positionType="Float" x="280" y="51" width="278" height="83" backcolor="rgba(255, 255, 255, 0.0)" uuid="3c3f4f70-c442-456d-8223-907bee500058"/>
+					<reportElement positionType="Float" x="280" y="44" width="278" height="83" backcolor="rgba(255, 255, 255, 0.0)" uuid="3c3f4f70-c442-456d-8223-907bee500058"/>
 				</rectangle>
 				<line>
-					<reportElement positionType="Float" x="280" y="73" width="278" height="1" uuid="35dd2c63-e756-4d6b-b397-908eac833a98"/>
+					<reportElement positionType="Float" x="280" y="65" width="278" height="1" uuid="35dd2c63-e756-4d6b-b397-908eac833a98"/>
 				</line>
 				<line>
-					<reportElement positionType="Float" x="280" y="94" width="278" height="1" uuid="12b5503b-7cd8-4cc2-a492-9f889619a372"/>
+					<reportElement positionType="Float" x="280" y="86" width="278" height="1" uuid="12b5503b-7cd8-4cc2-a492-9f889619a372"/>
 				</line>
 				<line>
-					<reportElement positionType="Float" x="419" y="51" width="1" height="83" uuid="373086ba-fc24-4f0c-9537-dfd2a764e73e"/>
+					<reportElement positionType="Float" x="419" y="44" width="1" height="83" uuid="373086ba-fc24-4f0c-9537-dfd2a764e73e"/>
 				</line>
 				<line>
-					<reportElement positionType="Float" x="280" y="114" width="278" height="1" uuid="c0022a2a-7c77-413f-996d-180f2426255e"/>
+					<reportElement positionType="Float" x="280" y="107" width="278" height="1" uuid="c0022a2a-7c77-413f-996d-180f2426255e"/>
 				</line>
 				<staticText>
-					<reportElement positionType="Float" x="281" y="52" width="138" height="20" uuid="99e2a0c9-5904-463e-9b1b-f18195f0dba1">
+					<reportElement positionType="Float" x="281" y="45" width="138" height="20" uuid="99e2a0c9-5904-463e-9b1b-f18195f0dba1">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -552,7 +593,7 @@
 					<text><![CDATA[Gross Total]]></text>
 				</staticText>
 				<staticText>
-					<reportElement positionType="Float" x="281" y="74" width="138" height="20" uuid="43d17987-8057-4052-9bf8-bf13b6946d9a">
+					<reportElement positionType="Float" x="281" y="67" width="138" height="20" uuid="43d17987-8057-4052-9bf8-bf13b6946d9a">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -561,7 +602,7 @@
 					<text><![CDATA[Total SGST]]></text>
 				</staticText>
 				<staticText>
-					<reportElement positionType="Float" x="281" y="115" width="138" height="18" uuid="59c7ed86-a09b-4eed-b7dd-d731c5a2989d">
+					<reportElement positionType="Float" x="281" y="108" width="138" height="18" uuid="59c7ed86-a09b-4eed-b7dd-d731c5a2989d">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -570,7 +611,7 @@
 					<text><![CDATA[Grand Total]]></text>
 				</staticText>
 				<textField>
-					<reportElement positionType="Float" x="419" y="52" width="138" height="20" uuid="0d70113f-363b-4757-a6ac-7721b803164a">
+					<reportElement positionType="Float" x="419" y="45" width="138" height="20" uuid="0d70113f-363b-4757-a6ac-7721b803164a">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -579,7 +620,7 @@
 					<textFieldExpression><![CDATA[$P{Invoice}.getGrossTotal()]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement positionType="Float" x="419" y="74" width="138" height="20" uuid="154e0311-96d1-439e-996b-47b94b9fdae0">
+					<reportElement positionType="Float" x="419" y="67" width="138" height="20" uuid="154e0311-96d1-439e-996b-47b94b9fdae0">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -588,7 +629,7 @@
 					<textFieldExpression><![CDATA[$P{Invoice}.getTotalsgst()]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement positionType="Float" x="419" y="115" width="138" height="18" uuid="cfbfb00e-89ec-43b4-b355-5e8ae192420d">
+					<reportElement positionType="Float" x="419" y="108" width="138" height="18" uuid="cfbfb00e-89ec-43b4-b355-5e8ae192420d">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -597,7 +638,7 @@
 					<textFieldExpression><![CDATA[$P{Invoice}.getGrandTotal()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement positionType="Float" x="281" y="95" width="138" height="20" uuid="a0716462-0922-4643-9aa9-8dd90f199028">
+					<reportElement positionType="Float" x="281" y="88" width="138" height="20" uuid="a0716462-0922-4643-9aa9-8dd90f199028">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -606,7 +647,7 @@
 					<text><![CDATA[Total CGST]]></text>
 				</staticText>
 				<textField>
-					<reportElement positionType="Float" x="420" y="96" width="138" height="20" uuid="81a432c7-dcfa-430d-9274-d8cb64b436ba">
+					<reportElement positionType="Float" x="420" y="89" width="138" height="20" uuid="81a432c7-dcfa-430d-9274-d8cb64b436ba">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -615,7 +656,7 @@
 					<textFieldExpression><![CDATA[$P{Invoice}.getTotalcgst()]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-					<reportElement positionType="Float" x="1" y="52" width="268" height="82" isRemoveLineWhenBlank="true" uuid="57f0b34f-28d4-42ce-bfc4-1c020c23a68b">
+					<reportElement positionType="Float" x="1" y="45" width="268" height="82" isRemoveLineWhenBlank="true" uuid="57f0b34f-28d4-42ce-bfc4-1c020c23a68b">
 						<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>

@@ -74,6 +74,7 @@ public class InvoiceController {
 		System.out.println(companyInvoice.getCompany().getName());
 		//System.out.println(companyInvoice.getInvoice().getInvoiceNumber());
 		//System.out.println(companyInvoice.getInvoice().getInvoiceDetails().toString());
+		invoiceService.updateInvoice(companyInvoice);
 		return companyInvoice.getCompany();
 	}
 	
@@ -84,6 +85,14 @@ public class InvoiceController {
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=" + invoiceNumber + ".pdf");
 		return new FileSystemResource(new File(basePath+ arr[0]+ "/" + arr[1] + "/" + arr[2]+ "/" + invoiceNumber + ".pdf"));
+	}
+	
+	@PostMapping(path = "/getInvoiceById")
+	@ResponseBody
+	public Invoice getInvoiceById(int id)
+	{
+		System.out.println(id);
+		return invoiceService.getInvoiceById(id);
 	}
 	
 }

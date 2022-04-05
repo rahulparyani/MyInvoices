@@ -15,4 +15,6 @@ public interface InvoiceService {
 	
 	public ArrayList<Invoice> listInvoices();
 	
+	public Invoice getInvoiceById(int id);
+	
 }

@@ -2,10 +2,8 @@ package com.project.myinvoices.daoimpl;
 
 import java.util.ArrayList;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.myinvoices.dao.SacNumbersDAO;
 import com.project.myinvoices.model.SacNumbers;
+import com.project.myinvoices.repository.SacNumbersRepository;
 
 @Repository
 public class SacNumbersDAOImpl implements SacNumbersDAO {
@@ -20,7 +19,7 @@ public class SacNumbersDAOImpl implements SacNumbersDAO {
 	private Logger logger = LoggerFactory.getLogger(SacNumbersDAOImpl.class);
 	
 	@Autowired
-	private EntityManager entityManager;
+	private SacNumbersRepository sacRepo;
 
 	@Override
 	@Transactional
@@ -28,7 +27,7 @@ public class SacNumbersDAOImpl implements SacNumbersDAO {
 		
 		logger.info("Enter add SAC ----->" + sacNumbers.getDescription());
 		
-		entityManager.unwrap(Session.class).persist(sacNumbers);
+		sacRepo.save(sacNumbers);
 		
 		logger.info("Exit add SAC");
 
@@ -40,7 +39,7 @@ public class SacNumbersDAOImpl implements SacNumbersDAO {
 		
 		logger.info("Enter update SAC ----->" + sacNumbers.getDescription());
 		
-		entityManager.unwrap(Session.class).update(sacNumbers);
+		sacRepo.save(sacNumbers);
 		
 		logger.info("Exit update SAC");
 
@@ -52,20 +51,19 @@ public class SacNumbersDAOImpl implements SacNumbersDAO {
 		
 		logger.info("Enter delete SAC ----->" + sacNumbers.getDescription());
 
-		entityManager.unwrap(Session.class).remove(entityManager.merge(sacNumbers));
+		sacRepo.delete(sacNumbers);
 		
 		logger.info("Exit delete SAC");
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public ArrayList<SacNumbers> listSac() {
 		
 		logger.info("Enter listSac()");
 		
-		return new ArrayList<SacNumbers>(entityManager.unwrap(Session.class).createQuery("from SacNumbers").list());
+		return new ArrayList<SacNumbers>(sacRepo.findAll());
 	}
 
 }

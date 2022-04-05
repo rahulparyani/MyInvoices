@@ -17,4 +17,6 @@ public interface InvoiceDAO {
 	
 	public void saveInvoiceDetails(InvoiceDetails invoiceDetails);
 	
+	public Invoice getInvoiceById(int id);
+	
 }

@@ -3,6 +3,7 @@ package com.project.myinvoices.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -71,7 +72,7 @@ public class Invoice {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "invoice_id")
 	@JsonManagedReference
 	private List<InvoiceDetails> invoiceDetails;

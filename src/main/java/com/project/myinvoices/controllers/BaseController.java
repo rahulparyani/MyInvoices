@@ -21,4 +21,9 @@ public class BaseController {
 		return "login.html";
 	}
 	
+	@GetMapping("/jspPage")
+	public String getJSPPage()
+	{
+		return "jspPage.jsp";
+	}
 }

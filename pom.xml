@@ -8,6 +8,12 @@
 		<version>2.5.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<repositories>
+	<repository>
+        <id> jaspersoft-repo</id>
+        <url>https://jaspersoft.jfrog.io/jaspersoft/jaspersoft-repo</url>
+	</repository>
+	</repositories>
 	<groupId>com.project.myinvoices</groupId>
 	<artifactId>MyInvoices</artifactId>
 	<version>0.0.1-SNAPSHOT</version>

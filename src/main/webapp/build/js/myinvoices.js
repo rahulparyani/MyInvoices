@@ -220,7 +220,6 @@ $(document).ready(function() {
 								'<input type="number" step="0.01" class="form-control amountINR" id="amountINR-' + count + '" name="amountINR-' + count + '">'
 							]).draw();
 							//initialize autocomplete on description
-							//console.log("inside datatable" + count)
 							init_autoComplete(count);
 							count++;
 						}
@@ -265,10 +264,10 @@ $(document).ready(function() {
 			});
 		}
 	})
-
+	
 	$("#createInvoice").on('submit', function(event) {
 		event.preventDefault();
-		console.log("submit called")
+
 
 		function company() {
 			
@@ -415,14 +414,6 @@ $(document).ready(function() {
 				url: "/invoice/deleteInvoice",
 				type: "POST"
 			},
-			update:{
-				url: "/invoice/updateInvoice",
-				type: "POST",
-				contentType: "application/json",
-				complete: function(data){
-					console.log(data)
-				},
-			},
 			parameterMap: function(options, operation) {
                     if (operation == "destroy" && options) {
                         return {id: options.id};
@@ -564,7 +555,7 @@ $(document).ready(function() {
                     field: "grandTotal",
                     title: "Grand Total",
                 },
-                {command: [{text:"View", click: viewInvoiceDetails},{text:"Edit"}, "destroy"], title: "Actions", width: "230px"}
+                {command: [{text:"View", click: viewInvoiceDetails}, "destroy"], title: "Actions", width: "230px"}
 
             ]
 	})
@@ -592,7 +583,6 @@ $(document).ready(function() {
 		}
 		
 		$("#downloadInvoice").click(function(){
-			console.log("Invoice ID" + dataItem.id)
 			var invoice = new Object();
 			invoice.id = dataItem.id;
 			invoice.invoiceNumber = dataItem.invoiceNumber;
@@ -600,9 +590,125 @@ $(document).ready(function() {
 			window.open("http://" + location.host + "/invoice/downloadInvoice?date="+invoice.date+"&invoiceNumber="+invoice.invoiceNumber , "_blank")
 		})
 	}
+	
+	function editInvoiceDetails(e){
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"))
+		var invoiceDetailsDataSource = initDataSource(dataItem);
+		var template = kendo.template($("#editTemplate").html());
+		var invoiceWindow = $("#editInvoiceWindow").kendoWindow({
+			title: "Edit Invoice",
+			modal: true,
+			resizable: true,
+			width:900,
+			height:500,
+			scrollable: true,
+			actions: ["Close"]
+		}).data("kendoWindow")
+		invoiceWindow.content(template(dataItem))
+		invoiceWindow.maximize().open()
+		if(dataItem.company.state == "Gujarat"){
+			edit_grid(invoiceDetailsDataSource)			
+		}
+		else{
+			edit_IgstGrid(invoiceDetailsDataSource)
+		}
 		
+		$("#name").kendoAutoComplete({
+			dataSource: dataSource,
+			dataTextField: "name",
+			change: onChange,
+			select: onSelect,
+			value: dataItem.company.name
+		})
+		
+		$("#updateInvoice").click(function(){
+			console.log("Invoice ID" + dataItem.id)
+			var postData = new Object();
+			var invoice = new Object();
+			var company = new Object();
+			var invoiceDetails = new Object();
+			postData.company = company;
+			postData.invoice = invoice;
+			postData.invoiceDetails = invoiceDetails;
+			postData.company.id = $("#id").val()
+			postData.company.name = $("#name").val()
+			postData.company.address = $("#address").val()
+			postData.company.city = $("#city").val()
+			postData.company.state = $("#state").val()
+			postData.company.country = $("#country").val()
+			postData.company.gstNumber = $("#gstNumber").val()
+			postData.invoice.id = dataItem.id
+			postData.invoice.date=$("#date").val()
+			postData.invoice.invoiceNumber=$("#invoiceNumber").val()
+			postData.invoice.vessel = $("#vessel").val()
+			postData.invoice.eta = $("#eta").val()
+			postData.invoice.volume =$("#volume").val();
+			postData.invoice.pol =$("#pol").val()
+			postData.invoice.pod = $("#pod").val()
+			postData.invoice.blNumber = $("#blNumber").val()
+			postData.invoice.cntNumber = $("#cntNumber").val();
+			postData.invoice.exchangeRate = $("#exchangeRate").val();
+			postData.invoice.grossTotal = $("#grossTotal").val()
+			postData.invoice.totalsgst =  $("#totalsgst").val()
+			postData.invoice.totalcgst =  $("#totalcgst").val()
+			postData.invoice.totaligst =  $("#totaligst").val()
+			postData.invoice.grandTotal = $("#grandTotal").val()
+			postData.invoice.notes = $("#notes").val()
+			postData.invoiceDetails = $("#editDetailsGrid").data("kendoGrid").dataSource.data()
+			
+			$.ajax({
+				type: 'post',
+				url: '/invoice/updateInvoice',
+				dataType: 'JSON',
+				headers: {
+					"Accept" : "application/json; charset=utf-8",
+					"Content-Type" : "application/json; charset=utf-8"
+				},
+				data: JSON.stringify(postData),
+				success: function(data){
+					new PNotify({title: 'Operation Successful',text: 'Invoice saved and generated successfully!',type: 'success',styling: 'bootstrap3'});
+				},
+				error: function(data){
+					if (data.responseJSON.message.includes("invoice_number_UNIQUE"))
+					{
+						new PNotify({title: 'Oh No!',text: 'Invoice number already exists!' ,type: 'error',styling: 'bootstrap3'});					
+					}
+					else
+					{
+					new PNotify({title: 'Oh No!',text: 'Something went wrong, please see logs for more information!' ,type: 'error',styling: 'bootstrap3'});
+					}
+				}
+			})
+		})
+	}
+	
+	function initDataSource(dataItem){
+		var invoiceDetails = new kendo.data.DataSource({
+			data: dataItem.invoiceDetails,
+			schema: {
+				model: {
+					id: "id",
+					fields:{
+						amountUSD: {type: "number"},
+						amountINR: {type: "number"},
+						description: {},
+						cgst: {type: "number"},
+						cgstRate: {type: "number"},
+						sgst: {type: "number"},
+						sgstRate: {type: "number"},
+						igst: {type: "number"},
+						igstRate: {type: "number"},
+						sacNumber: {type: "string"},
+					}
+				}
+			}
+		})
+		return invoiceDetails;
+	}
+	
 	function init_grid(dataItem)
-	{
+	{	
 		$("#detailsGrid").kendoGrid({
 			dataSource: dataItem.invoiceDetails,
 			columns: [
@@ -675,6 +781,118 @@ $(document).ready(function() {
             ]
 			
 		})
+	}
+	
+	function edit_grid(invoiceDetailsDataSource)
+	{
+		$("#editDetailsGrid").kendoGrid({
+			dataSource: invoiceDetailsDataSource,
+			editable: true,
+			toolbar: ["create"],
+			columns: [
+                {
+                    field: "description",
+                    title: "Description",
+					editor: descriptionAutoComplete
+                },
+                {
+                    field: "sacNumber",
+                    title: "SAC Number"
+                },
+				{
+                    field: "sgstRate",
+                    title: "SGST Rate %"
+                },
+				{
+                    field: "sgst",
+                    title: "SGST"
+                },
+				{
+                    field: "cgstRate",
+                    title: "CGST Rate %"
+                },
+				{
+                    field: "cgst",
+                    title: "CGST"
+                },
+                {
+                    field: "amountUSD",
+                    title: "Amount USD"
+                },
+                {
+                    field: "amountINR",
+                    title: "Amount INR"
+                },
+				{ command:["destroy"], title: "&nbsp;", width: 150 }
+            ]
+		})
+	}
+	
+	function edit_IgstGrid(invoiceDetailsDataSource)
+	{
+		$("#editDetailsGrid").kendoGrid({
+			dataSource: invoiceDetailsDataSource,
+			editable: true,
+			toolbar: ["create"],
+			columns: [
+                {
+                    field: "description",
+                    title: "Description"
+                },
+                {
+                    field: "sacNumber",
+                    title: "SAC Number"
+                },
+				{
+                    field: "igstRate",
+                    title: "IGST Rate %"
+                },
+				{
+                    field: "igst",
+                    title: "IGST"
+                },
+                {
+                    field: "amountUSD",
+                    title: "Amount USD"
+                },
+                {
+                    field: "amountINR",
+                    title: "Amount INR"
+                },
+				{ command: "destroy", title: "&nbsp;", width: 150 }
+            ]
+			
+		})
+	}
+	
+	function descriptionAutoComplete(container, options, e) {
+		console.log("description AutoComplete called")
+		console.log("event")
+		console.log(e)
+		console.log("auto complete container")
+		console.log(container)
+        $('<input required data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoAutoComplete({
+            dataSource: dataSac,
+            dataTextField: "description",
+          	change: function(e){
+              console.log(e);
+             	
+            },
+          	select: function(e){
+				console.log("Select description event")
+				console.log(e)
+            },
+            minLength: 1
+        });
+    }
+
+	function editInvoiceDetailsGrid(e)
+	{
+		console.log(e)
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"))
+		console.log(dataItem)		
 	}
 })
 

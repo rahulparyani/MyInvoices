@@ -2,10 +2,10 @@ package com.project.myinvoices.daoimpl;
 
 import java.util.ArrayList;
 
-import javax.persistence.EntityManager;
+
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import com.project.myinvoices.dao.InvoiceDAO;
 import com.project.myinvoices.model.Invoice;
 import com.project.myinvoices.model.InvoiceDetails;
+import com.project.myinvoices.repository.InvoiceDetailsRepository;
+import com.project.myinvoices.repository.InvoiceRepository;
 
 @Repository
 public class InvoiceDAOImpl implements InvoiceDAO {
@@ -21,7 +23,10 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 	private Logger logger = LoggerFactory.getLogger(InvoiceDAOImpl.class);
 	
 	@Autowired
-	private EntityManager entityManager;
+	private InvoiceRepository invoiceRepo;
+	
+	@Autowired
+	private InvoiceDetailsRepository invoiceDetailsRepo;
 	
 	@Override
 	@Transactional
@@ -29,19 +34,18 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 		
 		logger.info("Enter create Invoice ----->" + invoice.getInvoiceNumber()+ ", " +invoice.getCompany().getName()+ ", "+ invoice.getCompany().getId());
 		
-		entityManager.unwrap(Session.class).persist(invoice);
+		invoiceRepo.save(invoice);
 		
 		logger.info("Exit createInvoice");
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public ArrayList<Invoice> listInvoices() {
 		
 		logger.info("Enter listInvoices()");
 		
-		return new ArrayList<Invoice>(entityManager.unwrap(Session.class).createQuery("from Invoice").list());
+		return new ArrayList<Invoice>(invoiceRepo.findAll());
 		
 	}
 
@@ -50,7 +54,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 		
 		logger.info("Enter update Invoice ----->" + invoice.getInvoiceNumber()+ ", " +invoice.getCompany().getName());
 		
-		entityManager.unwrap(Session.class).update(invoice);
+		invoiceRepo.save(invoice);
 		
 		logger.info("Exit updateInvoice");
 
@@ -59,7 +63,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 	@Transactional
 	@Override
 	public void deleteInvoice(int id) {
-		entityManager.unwrap(Session.class).remove(entityManager.merge(entityManager.find(Invoice.class, id)));
+		invoiceRepo.delete(invoiceRepo.getInvoiceById(id));
 		logger.info("Deleted Successfully!");
 	}
 
@@ -67,10 +71,16 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 	@Override
 	public void saveInvoiceDetails(InvoiceDetails invoiceDetails) {
 		
-		entityManager.unwrap(Session.class).persist(invoiceDetails);
+		invoiceDetailsRepo.save(invoiceDetails);
 		
 		logger.info("Exit saveInvoiceDetails");
 		
 	}
 
+	@Transactional
+	@Override
+	public Invoice getInvoiceById(int id) {
+		return invoiceRepo.getInvoiceById(id);
+	}
+	
 }
