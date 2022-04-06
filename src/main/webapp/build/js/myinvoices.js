@@ -72,6 +72,20 @@ $(document).ready(function() {
 		$("#amountINR-" + id[1]).val((inr).toFixed(2)).change()
 
 	})
+	
+	$("#invoiceDetails").on("change", ".rate", function() {
+	
+		var id = $(this).attr('id').split('-')
+		var volume = $("#volume-"+ id[1]).val()
+		var rate = $("#rate-" + id[1]).val()
+		var currency = $("#currency-" + id[1]).val()
+		if (currency === "USD"){
+			$("#amountUSD-" + id[1]).val((rate * volume).toFixed(2)).change()
+		}
+		else {
+			$("#amountINR-" + id[1]).val((rate * volume).toFixed(2)).change()		
+		}
+	})
 
 	function onSelect(e) {
 		//set text box values on select fetching data from event object
@@ -198,7 +212,7 @@ $(document).ready(function() {
 				$("#invoiceDetails").DataTable().clear().destroy();
 			}
 			$("#taxBlock").html('<div class="form-group"> <label class="control-label col-md-2 col-sm-3 col-xs-12 col-md-offset-3">SGST:</label> <div class="col-md-2 col-xs-12"> <input type="text" class="form-control" id="totalsgst" name="totalsgst" readonly="readonly" placeholder="Total SGST"> </div></div><div class="form-group"> <label class="control-label col-md-2 col-sm-3 col-xs-12 col-md-offset-3">CGST:</label> <div class="col-md-2 col-xs-12"> <input type="text" class="form-control" id="totalcgst" name="totalcgst" readonly="readonly" placeholder="Total CGST"> </div></div>')
-			$("#invoiceDetails").html("<thead><th style='width:10px'>Sr No.</th><th>Description</th><th style='width:60px'>SAC Number</th><th style='width:45px'>SGST Rate <span class='fa fa-percent'></span></th><th style='width:50px'>SGST <span class='fa fa-inr'></span></th><th style='width:45px'>CGST Rate <span class='fa fa-percent'></th><th style='width:50px'>CGST <span class='fa fa-inr'></span></th><th style='width:100px'>Amount USD</th><th style='width:100px'>Amount INR</th></thead>");
+			$("#invoiceDetails").html("<thead><th style='width:10px'>Sr No.</th><th>Description</th><th style='width:60px'>SAC Number</th><th style='width:45px'>Rate</th><th style='width:45px'>Currency</th><th style='width:45px'>Volume</th><th style='width:45px'>SGST Rate <span class='fa fa-percent'></span></th><th style='width:50px'>SGST <span class='fa fa-inr'></span></th><th style='width:45px'>CGST Rate <span class='fa fa-percent'></th><th style='width:50px'>CGST <span class='fa fa-inr'></span></th><th style='width:100px'>Amount USD</th><th style='width:100px'>Amount INR</th></thead>");
 			var count = 1;
 			var invoiceDetails = $("#invoiceDetails").DataTable({
 				dom: 'Bfrtip',
@@ -212,6 +226,9 @@ $(document).ready(function() {
 								count,
 								'<input type="text" class="description" id="description-' + count + '" name="description-' + count + '"/>',
 								'<input type="text" class="form-control" id="sacNumber-' + count + '" name="sacNumber-' + count + '" >',
+								'<input type="number" step="0.01" class="form-control rate" id="rate-' + count + '" name="rate-' + count + '" >',
+								'<select class="form-control" id="currency-'+count+'"><option value="USD">USD</option><option value="INR">INR</option></select>',
+								'<input type="number" step="0.01" class="form-control volume" id="volume-' + count + '" name="volume-' + count + '" >',
 								'<input type="text" readonly class="form-control" id="sgstRate-' + count + '" name="sgstRate-' + count + '">',
 								'<input type="text" readonly class="form-control sgst" id="sgst-' + count + '" name="sgst-' + count + '">',
 								'<input type="text" readonly class="form-control" id="cgstRate-' + count + '" name="cgstRate-' + count + '">',
@@ -327,6 +344,11 @@ $(document).ready(function() {
 						(elem.length > 0 && elem[0].id.indexOf('sacNumber') != -1
 						)) {
 						row.sacNumber= elem.val();
+					}
+					else if (elem.context.id.indexOf('rate') != -1 ||
+						(elem.length > 0 && elem[0].id.indexOf('rate') != -1
+						)) {
+						row.rate= elem.val();
 					}
 					else if (elem.context.id.indexOf('sgstRate') != -1 ||
 						(elem.length > 0 && elem[0].id.indexOf('sgstRate') != -1)

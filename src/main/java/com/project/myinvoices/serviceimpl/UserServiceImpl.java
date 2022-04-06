@@ -24,9 +24,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		System.out.println("Called service: " + email);
 		User user = userRepository.findByEmail(email);
-		System.out.println(user);
 		if(user == null) {
 			System.out.println("Inside IF");
 			throw new UsernameNotFoundException("Invalid username or password." + user);

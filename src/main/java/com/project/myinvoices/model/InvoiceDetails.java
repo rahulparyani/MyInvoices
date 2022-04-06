@@ -26,6 +26,8 @@ public class InvoiceDetails {
 	
 	private double amountINR;
 	
+	private double rate;
+	
 	private double sgst;
 	
 	private double sgstRate;
