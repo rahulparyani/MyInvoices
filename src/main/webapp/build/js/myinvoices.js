@@ -73,7 +73,7 @@ $(document).ready(function() {
 
 	})
 	
-	$("#invoiceDetails").on("change", ".rate", function() {
+	$("#invoiceDetails").on("change", ".volume", function() {
 	
 		var id = $(this).attr('id').split('-')
 		var volume = $("#volume-"+ id[1]).val()
@@ -173,9 +173,9 @@ $(document).ready(function() {
 			}
 		});
 
-		$('#totalsgst').val(totalsgst);
+		$('#totalsgst').val(totalsgst.toFixed(2));
 
-		$('#totalcgst').val(totalcgst);
+		$('#totalcgst').val(totalcgst.toFixed(2));
 
 		$('#totaligst').val(totaligst.toFixed(2));
 
@@ -226,7 +226,7 @@ $(document).ready(function() {
 								count,
 								'<input type="text" class="description" id="description-' + count + '" name="description-' + count + '"/>',
 								'<input type="text" class="form-control" id="sacNumber-' + count + '" name="sacNumber-' + count + '" >',
-								'<input type="number" step="0.01" class="form-control rate" id="rate-' + count + '" name="rate-' + count + '" >',
+								'<input type="number" step="0.01" class="form-control" id="rate-' + count + '" name="rate-' + count + '" >',
 								'<select class="form-control" id="currency-'+count+'"><option value="USD">USD</option><option value="INR">INR</option></select>',
 								'<input type="number" step="0.01" class="form-control volume" id="volume-' + count + '" name="volume-' + count + '" >',
 								'<input type="text" readonly class="form-control" id="sgstRate-' + count + '" name="sgstRate-' + count + '">',
@@ -253,7 +253,7 @@ $(document).ready(function() {
 
 			$("#taxBlock").html('<div class="form-group"> <label class="control-label col-md-2 col-sm-3 col-xs-12 col-md-offset-3">IGST:</label> <div class="col-md-2 col-xs-12"> <input type="text" class="form-control" id="totaligst" name="totaligst" readonly="readonly" placeholder="Total IGST" > </div></div>')
 
-			$("#invoiceDetails").html("<thead><th style='width:10px'>Sr No.</th><th>Description</th><th style='width:60px'>SAC Number</th><th style='width:45px'>IGST Rate <span class='fa fa-percent'></span></th><th style='width:50px'>IGST <span class='fa fa-inr'></span></th><th style='width:100px'>Amount USD</th><th style='width:100px'>Amount INR</th></thead>");
+			$("#invoiceDetails").html("<thead><th style='width:10px'>Sr No.</th><th>Description</th><th style='width:60px'>SAC Number</th><th style='width:45px'>Rate</th><th style='width:45px'>Currency</th><th style='width:45px'>Volume</th><th style='width:45px'>IGST Rate <span class='fa fa-percent'></span></th><th style='width:50px'>IGST <span class='fa fa-inr'></span></th><th style='width:100px'>Amount USD</th><th style='width:100px'>Amount INR</th></thead>");
 			var count = 1;
 			var invoiceDetails = $("#invoiceDetails").DataTable({
 				dom: 'Bfrtip',
@@ -267,6 +267,9 @@ $(document).ready(function() {
 								count,
 								'<input type="text" class="description" id="description-' + count + '" name="description-' + count + '"/>',
 								'<input type="text" class="form-control" id="sacNumber-' + count + '" name="sacNumber-' + count + '" >',
+								'<input type="number" step="0.01" class="form-control" id="rate-' + count + '" name="rate-' + count + '" >',
+								'<select class="form-control" id="currency-'+count+'"><option value="USD">USD</option><option value="INR">INR</option></select>',
+								'<input type="number" step="0.01" class="form-control volume" id="volume-' + count + '" name="volume-' + count + '" >',
 								'<input type="text" readonly class="form-control" id="igstRate-' + count + '" name="igstRate-' + count + '">',
 								'<input type="text" readonly class="form-control igst" id="igst-' + count + '" name="igst-' + count + '">',
 								'<input type="number" step="0.01" class="form-control amountUSD" id="amountUSD-' + count + '" name="amountUSD-' + count + '">',
@@ -330,7 +333,7 @@ $(document).ready(function() {
 		$.each($('[role=row]'), function(v, index) {
 			var row = new invoiceDetail();
 			$(index).find('td').each(function(x, element) {
-				var elem = $(element).find('input')
+				var elem = $(element).find('input, select')
 				if (elem && elem !== undefined) {
 					if (elem.context.id == undefined || (elem.length > 0 && elem[0].id == undefined)) {
 
@@ -349,6 +352,16 @@ $(document).ready(function() {
 						(elem.length > 0 && elem[0].id.indexOf('rate') != -1
 						)) {
 						row.rate= elem.val();
+					}
+					else if (elem.context.id.indexOf('currency') != -1 ||
+						(elem.length > 0 && elem[0].id.indexOf('currency') != -1
+						)) {
+						row.currency= elem.val();
+					}
+					else if (elem.context.id.indexOf('volume') != -1 ||
+						(elem.length > 0 && elem[0].id.indexOf('volume') != -1
+						)) {
+						row.volume= elem.val();
 					}
 					else if (elem.context.id.indexOf('sgstRate') != -1 ||
 						(elem.length > 0 && elem[0].id.indexOf('sgstRate') != -1)

@@ -28,6 +28,10 @@ public class InvoiceDetails {
 	
 	private double rate;
 	
+	private double volume;
+	
+	private String currency;
+	
 	private double sgst;
 	
 	private double sgstRate;
