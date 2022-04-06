@@ -92,8 +92,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 		return invoiceDAO.listInvoices();
 	}
 	
+	@Override
 	public void generateInvoice(CompanyInvoice companyInvoice) {
+		
 		try {
+			
+			logger.info("Generating Invoice --> invoiceNumber="+companyInvoice.getInvoice().getInvoiceNumber());
+			
 			JasperReport report;
 			
 			if(companyInvoice.getCompany().getState().equals("Gujarat"))
@@ -126,6 +131,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

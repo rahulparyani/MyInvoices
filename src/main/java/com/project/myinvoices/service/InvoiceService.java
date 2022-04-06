@@ -17,4 +17,6 @@ public interface InvoiceService {
 	
 	public Invoice getInvoiceById(int id);
 	
+	public void generateInvoice(CompanyInvoice companyInvoice);
+	
 }

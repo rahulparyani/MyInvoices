@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.myinvoices.model.Company;
 import com.project.myinvoices.model.CompanyInvoice;
 import com.project.myinvoices.model.Invoice;
+import com.project.myinvoices.model.InvoiceDetails;
 import com.project.myinvoices.service.InvoiceService;
 
 @Controller
@@ -78,20 +79,28 @@ public class InvoiceController {
 		return companyInvoice.getCompany();
 	}
 	
-	@GetMapping(path = "/downloadInvoice{date}")
+	@GetMapping(path = "/downloadInvoice")
 	@ResponseBody
-	public FileSystemResource downloadInvoice(@RequestParam("date") String date, @RequestParam("invoiceNumber") String invoiceNumber, HttpServletResponse response) {
+	public FileSystemResource downloadInvoice(@RequestParam("date") String date, @RequestParam("invoiceNumber") String invoiceNumber, @RequestParam("id") int id,HttpServletResponse response) {
 		String[] arr = date.split("-");
+		File file = new File(basePath+ arr[0]+ "/" + arr[1] + "/" + arr[2]+ "/" + invoiceNumber + ".pdf");
+		if (!file.exists()) {
+			Invoice invoice = invoiceService.getInvoiceById(id);
+			CompanyInvoice companyInvoice = new CompanyInvoice();
+			companyInvoice.setCompany(invoice.getCompany());
+			companyInvoice.setInvoice(invoice);
+			companyInvoice.setInvoiceDetails(new ArrayList<InvoiceDetails>(invoice.getInvoiceDetails()));
+			invoiceService.generateInvoice(companyInvoice);
+		}
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=" + invoiceNumber + ".pdf");
-		return new FileSystemResource(new File(basePath+ arr[0]+ "/" + arr[1] + "/" + arr[2]+ "/" + invoiceNumber + ".pdf"));
+		return new FileSystemResource(file);
 	}
 	
 	@PostMapping(path = "/getInvoiceById")
 	@ResponseBody
 	public Invoice getInvoiceById(int id)
 	{
-		System.out.println(id);
 		return invoiceService.getInvoiceById(id);
 	}
 	

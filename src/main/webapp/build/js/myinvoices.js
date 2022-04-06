@@ -622,7 +622,7 @@ $(document).ready(function() {
 			invoice.id = dataItem.id;
 			invoice.invoiceNumber = dataItem.invoiceNumber;
 			invoice.date = dataItem.date;
-			window.open("http://" + location.host + "/invoice/downloadInvoice?date="+invoice.date+"&invoiceNumber="+invoice.invoiceNumber , "_blank")
+			window.open("http://" + location.host + "/invoice/downloadInvoice?date="+invoice.date+"&invoiceNumber="+invoice.invoiceNumber+"&id="+invoice.id, "_blank")
 		})
 	}
 	
@@ -756,6 +756,18 @@ $(document).ready(function() {
                     title: "SAC Number"
                 },
 				{
+                    field: "rate",
+                    title: "Rate"
+                },
+				{
+                    field: "currency",
+                    title: "Currency"
+                },
+				{
+                    field: "volume",
+                    title: "Volume"
+                },
+				{
                     field: "sgstRate",
                     title: "SGST Rate %"
                 },
@@ -796,6 +808,18 @@ $(document).ready(function() {
                 {
                     field: "sacNumber",
                     title: "SAC Number"
+                },
+				{
+                    field: "rate",
+                    title: "Rate"
+                },
+				{
+                    field: "currency",
+                    title: "Currency"
+                },
+				{
+                    field: "volume",
+                    title: "Volume"
                 },
 				{
                     field: "igstRate",
