@@ -37,6 +37,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Value("${output-location}")
 	private String path;
 
+	@Value("${source}")
+	private String source;
+	
 	@Autowired
 	private InvoiceDAO invoiceDAO;
 	
@@ -103,11 +106,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 			
 			if(companyInvoice.getCompany().getState().equals("Gujarat"))
 			{
-				report = JasperCompileManager.compileReport(new FileInputStream("src/main/jasper/sgst-invoice-template.jrxml"));
+				report = JasperCompileManager.compileReport(new FileInputStream(source + "sgst-invoice-template.jrxml"));
 			}
 			else
 			{
-				report = JasperCompileManager.compileReport(new FileInputStream("src/main/jasper/igst-invoice-template.jrxml"));
+				report = JasperCompileManager.compileReport(new FileInputStream(source + "igst-invoice-template.jrxml"));
 			}
 			
 			JRBeanCollectionDataSource jrdata = new JRBeanCollectionDataSource(companyInvoice.getInvoiceDetails());
