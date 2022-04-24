@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+	function sleep(ms) {
+  		return new Promise(resolve => setTimeout(resolve, ms));
+	}
+
 	$("#loading").hide()
 
 	var dataSource = new kendo.data.DataSource({
@@ -247,6 +251,7 @@ $(document).ready(function() {
 						text: 'Remove Row',
 						action: function() {
 							invoiceDetails.row('.selected').remove().draw(false);
+							$(".amountINR").change();
 						}
 					}
 				]
@@ -291,7 +296,8 @@ $(document).ready(function() {
 					{
 						text: 'Remove Row',
 						action: function() {
-							invoiceDetails.row('.selected').remove().draw(false);
+							invoiceDetails.row('.selected').remove().draw(false)
+							$(".amountINR").change();
 						}
 					}
 				]
@@ -336,7 +342,7 @@ $(document).ready(function() {
 
 		var invoice = new invoice();
 		invoice.date = $("#date").val()
-		invoice.invoiceNumber = $("#invoiceNumber").val()
+		invoice.invoiceNumber = $("#invoiceNumber").val() + "-" +$("#shipmentNumber").val() + "-" + $("#year").val() 
 		invoice.vessel = $("#vessel").val()
 		invoice.eta = $("#eta").val()
 		invoice.volume = $("#volume").val()
@@ -454,6 +460,7 @@ $(document).ready(function() {
 					$("#invoiceDetails").DataTable().clear().destroy();
 				}
 				$("#createInvoice")[0].reset()
+				sleep(2000).then(() => { location.reload(); });
 			},
 			error: function(data) {
 				if (data.responseJSON.message.includes("invoice_number_UNIQUE")) {

@@ -22,4 +22,6 @@ public interface InvoiceService {
 	
 	public void deleteInvoiceDetails (InvoiceDetails invoiceDetails);
 	
+	public Invoice getLastInvoice();
+	
 }

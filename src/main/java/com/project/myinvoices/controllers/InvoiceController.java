@@ -107,4 +107,11 @@ public class InvoiceController {
 		return "{\"msg\":\"Success\"}";
 	}
 	
+	@GetMapping(path = "/getLastInvoice")
+	@ResponseBody
+	public Invoice getLastInvoice()
+	{
+		return invoiceService.getLastInvoice();
+	}
+	
 }

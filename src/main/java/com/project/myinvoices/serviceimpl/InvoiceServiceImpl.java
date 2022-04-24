@@ -154,4 +154,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 		invoiceDAO.deleteInvoiceDetails(invoiceDetails);
 	}
 
+	@Override
+	public Invoice getLastInvoice()
+	{
+		return invoiceDAO.getLastInvoice();
+	}
+	
 }

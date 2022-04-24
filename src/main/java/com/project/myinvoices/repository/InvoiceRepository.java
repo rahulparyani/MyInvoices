@@ -12,4 +12,6 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Integer> {
 	
 	public Invoice getInvoiceById(int id);
 	
+	public Invoice findTopByOrderByIdDesc();
+	
 }

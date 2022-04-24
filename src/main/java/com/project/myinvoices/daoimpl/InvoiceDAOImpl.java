@@ -90,5 +90,14 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 		invoiceDetailsRepo.deleteById(invoiceDetails.getId());
 		logger.info("Exit deleteInvoiceDetails");
 	}
+
+	@Override
+	@Transactional
+	public Invoice getLastInvoice() {
+		
+		return invoiceRepo.findTopByOrderByIdDesc();
+	}
+	
+	
 	
 }
