@@ -348,6 +348,29 @@
 	<script src="../vendors/pnotify/dist/pnotify.js"></script>
 
 	<script src="../build/js/custom.min.js"></script>
+	
+	<script>
+		$(document).ready(function(){
+			$.ajax({
+                type: 'get', // it's easier to read GET request parameters
+                url: '/invoice/getLastInvoice',
+                dataType: 'JSON',
+                headers: {
+                    "Accept" : "application/json; charset=utf-8",
+                    "Content-Type" : "application/json; charset=utf-8"
+                },
+                success: function (data) {
+                	var invoiceNumber = data.invoiceNumber.split("-")
+                	$("#invoiceNumber").val(parseInt(invoiceNumber[0]) + 1)
+                	$("#year").val(invoiceNumber[2])
+                },
+                error: function (data) {                    
+                	
+                }
+            }); 			  
+
+		})
+	</script>
 
 	<script src="../build/js/myinvoices.js"></script>
 
