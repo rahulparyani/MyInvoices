@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.project.myinvoices.model.CompanyInvoice;
 import com.project.myinvoices.model.Invoice;
+import com.project.myinvoices.model.InvoiceDetails;
 
 public interface InvoiceService {
 	
@@ -18,5 +19,7 @@ public interface InvoiceService {
 	public Invoice getInvoiceById(int id);
 	
 	public void generateInvoice(CompanyInvoice companyInvoice);
+	
+	public void deleteInvoiceDetails (InvoiceDetails invoiceDetails);
 	
 }

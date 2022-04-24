@@ -19,4 +19,5 @@ public interface InvoiceDAO {
 	
 	public Invoice getInvoiceById(int id);
 	
+	public void deleteInvoiceDetails (InvoiceDetails invoiceDetails);
 }

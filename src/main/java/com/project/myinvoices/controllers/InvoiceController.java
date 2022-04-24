@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.project.myinvoices.model.Company;
 import com.project.myinvoices.model.CompanyInvoice;
 import com.project.myinvoices.model.Invoice;
 import com.project.myinvoices.model.InvoiceDetails;
@@ -70,13 +69,10 @@ public class InvoiceController {
 	
 	@PostMapping("/updateInvoice")
 	@ResponseBody
-	public Company updateInvoice(@RequestBody CompanyInvoice companyInvoice)
+	public String updateInvoice(@RequestBody CompanyInvoice companyInvoice)
 	{
-		System.out.println(companyInvoice.getCompany().getName());
-		//System.out.println(companyInvoice.getInvoice().getInvoiceNumber());
-		//System.out.println(companyInvoice.getInvoice().getInvoiceDetails().toString());
 		invoiceService.updateInvoice(companyInvoice);
-		return companyInvoice.getCompany();
+		return "{\"msg\":\"Success\"}";
 	}
 	
 	@GetMapping(path = "/downloadInvoice")
@@ -102,6 +98,13 @@ public class InvoiceController {
 	public Invoice getInvoiceById(int id)
 	{
 		return invoiceService.getInvoiceById(id);
+	}
+	
+	@PostMapping(path = "/deleteInvoiceDetails")
+	@ResponseBody
+	public String deleteInvoice (@RequestBody InvoiceDetails invoiceDetails) {
+		invoiceService.deleteInvoiceDetails(invoiceDetails);
+		return "{\"msg\":\"Success\"}";
 	}
 	
 }

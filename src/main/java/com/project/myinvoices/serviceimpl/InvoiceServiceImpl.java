@@ -83,6 +83,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			id.setInvoice(invoice);
 			invoiceDAO.saveInvoiceDetails(id);
 		}
+		generateInvoice(companyInvoice);
 	}
 
 	@Override
@@ -146,6 +147,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public Invoice getInvoiceById(int id) {
 		return invoiceDAO.getInvoiceById(id);
+	}
+
+	@Override
+	public void deleteInvoiceDetails(InvoiceDetails invoiceDetails) {
+		invoiceDAO.deleteInvoiceDetails(invoiceDetails);
 	}
 
 }

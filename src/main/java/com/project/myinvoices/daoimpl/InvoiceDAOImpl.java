@@ -82,5 +82,13 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 	public Invoice getInvoiceById(int id) {
 		return invoiceRepo.getInvoiceById(id);
 	}
+
+	@Override
+	@Transactional
+	public void deleteInvoiceDetails(InvoiceDetails invoiceDetails) {
+		logger.info("Enter deleteInvoiceDetails");
+		invoiceDetailsRepo.deleteById(invoiceDetails.getId());
+		logger.info("Exit deleteInvoiceDetails");
+	}
 	
 }

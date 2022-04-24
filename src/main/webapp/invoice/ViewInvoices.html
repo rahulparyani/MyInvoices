@@ -16,6 +16,8 @@
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 
+	<link href="../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     
@@ -170,6 +172,7 @@
     				</script>
 					<script type="text/x-kendo-template" id="editTemplate">
         				<div id="details-container" class="">
+						<div id="loading" class="overlay"></div>
             				<!--<h2>#= company.name #, #= company.state # <span class="pull-right fa fa-calendar"> #= kendo.toString(date, "MM/dd/yyyy") #</span></h2>
             				<em>Invoice Number: #= invoiceNumber #</em>
             				<dl>
@@ -250,17 +253,19 @@
 										<td>Total IGST:</td><td><input type="number" step="0.01" name="totaligst" id="totaligst" value="#=totaligst#" /></td>
 									</tr>
 									<tr>
-										<td>TDS:</td><td>#= ((grossTotal*2)/100) #</td>
-									</tr>
-									<tr>
 										<td>Grand Total:</td><td><input type="number" step="0.01" name="grandTotal" id="grandTotal" value="#=grandTotal#" /></td>
 									</tr>
 								</table>
 								</div>
 							</div>
         				</div>
-
     				</script>
+    				<div id="deletePrompt"></div>
+    				<script type="text/x-kendo-template" id="windowTemplate">
+    					<p> Delete <strong>#= description #</strong> ? </p>
+    					<button class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base" id="yesButton"><span class="k-button-text">Yes</span></button>
+    					<button class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base" id="noButton"><span class="k-button-text">No</span></button>
+					</script>
     				<style type="text/css">
     				
     					.row{
@@ -300,6 +305,17 @@
         				{
         					width:25%
         				}
+        				.overlay {
+							position: fixed;
+							width: 100%;
+							height: 100%;
+							top: 0px;
+							left: 0px;
+							z-index: 999;
+							background: url(../images/331.svg) center center no-repeat
+								rgba(255, 255, 255, 0.8);
+							display: block;
+						}
     				</style>
                   </div>
                 </div>
@@ -325,7 +341,7 @@
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
-    
+	<script src="../vendors/pnotify/dist/pnotify.js"></script>    
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
     
