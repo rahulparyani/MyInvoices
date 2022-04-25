@@ -181,7 +181,11 @@
 											<span class="fa fa-calendar form-control-feedback left"
 												aria-hidden="true"></span>
 										</div>
-
+										<div
+											class="col-md-2 col-sm-6 col-xs-12 form-group">
+											<input type="text" class="form-control" id="shipmentNumber"
+												name="invoiceNumber" placeholder="Shipment Number*" required>
+										</div>
 										<div
 											class="col-md-2 col-sm-6 col-xs-12 form-group has-feedback">
 											<input type="text" class="form-control" id="invoiceNumber"
@@ -189,11 +193,7 @@
 											<span class="fa fa-hashtag form-control-feedback right"
 												aria-hidden="true"></span>
 										</div>
-										<div
-											class="col-md-2 col-sm-6 col-xs-12 form-group">
-											<input type="text" class="form-control" id="shipmentNumber"
-												name="invoiceNumber" placeholder="Shipment Number*" required>
-										</div>
+										
 										<div
 											class="col-md-2 col-sm-6 col-xs-12 form-group">
 											<input type="text" class="form-control" id="year"
@@ -361,7 +361,7 @@
                 },
                 success: function (data) {
                 	var invoiceNumber = data.invoiceNumber.split("-")
-                	$("#invoiceNumber").val(parseInt(invoiceNumber[0]) + 1)
+                	$("#invoiceNumber").val(parseInt(invoiceNumber[1]) + 1)
                 	$("#year").val(invoiceNumber[2])
                 },
                 error: function (data) {                    

@@ -20,6 +20,7 @@ import com.project.myinvoices.dao.InvoiceDAO;
 import com.project.myinvoices.model.CompanyInvoice;
 import com.project.myinvoices.model.Invoice;
 import com.project.myinvoices.model.InvoiceDetails;
+import com.project.myinvoices.service.EmailService;
 import com.project.myinvoices.service.InvoiceService;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -44,6 +45,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 	private InvoiceDAO invoiceDAO;
 	
 	private Logger logger = LoggerFactory.getLogger(InvoiceServiceImpl.class);
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@Override
 	public void saveInvoice(CompanyInvoice companyInvoice) {

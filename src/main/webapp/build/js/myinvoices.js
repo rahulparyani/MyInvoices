@@ -342,7 +342,7 @@ $(document).ready(function() {
 
 		var invoice = new invoice();
 		invoice.date = $("#date").val()
-		invoice.invoiceNumber = $("#invoiceNumber").val() + "-" +$("#shipmentNumber").val() + "-" + $("#year").val() 
+		invoice.invoiceNumber = $("#shipmentNumber").val() + "-" + $("#invoiceNumber").val() + "-" + $("#year").val() 
 		invoice.vessel = $("#vessel").val()
 		invoice.eta = $("#eta").val()
 		invoice.volume = $("#volume").val()
