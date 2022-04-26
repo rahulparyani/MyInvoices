@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.myinvoices.model.CompanyInvoice;
 import com.project.myinvoices.model.Invoice;
 import com.project.myinvoices.model.InvoiceDetails;
+import com.project.myinvoices.service.EmailService;
 import com.project.myinvoices.service.InvoiceService;
 
 @Controller
@@ -28,6 +29,9 @@ public class InvoiceController {
 	
 	@Autowired
 	private InvoiceService invoiceService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@Value("${output-location}")
 	private String basePath;
@@ -112,6 +116,15 @@ public class InvoiceController {
 	public Invoice getLastInvoice()
 	{
 		return invoiceService.getLastInvoice();
+	}
+	
+	@GetMapping(path = "/sendInvoice")
+	@ResponseBody
+	public String sendInvoice()
+	{
+		
+		emailService.sendEmail("rahul.paryani.15@gail.com", "D:\\EclipseWorkspace1\\output\\test.pdf");
+		return "{\"msg\":\"Success\"}";
 	}
 	
 }
