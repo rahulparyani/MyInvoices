@@ -122,8 +122,7 @@ public class InvoiceController {
 	@ResponseBody
 	public String sendInvoice()
 	{
-		
-		emailService.sendEmail("rahul.paryani.15@gail.com", "D:\\EclipseWorkspace1\\output\\test.pdf");
+		emailService.sendEmail("rahul.paryani.15@gmail.com", "D:\\EclipseWorkspace1\\output\\test.pdf");
 		return "{\"msg\":\"Success\"}";
 	}
 	

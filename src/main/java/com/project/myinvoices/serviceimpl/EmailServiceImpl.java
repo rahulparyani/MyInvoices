@@ -42,6 +42,7 @@ public class EmailServiceImpl implements EmailService {
 				FileSystemResource file = new FileSystemResource(new File(path));
 	            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 	            helper.addAttachment("invoice.pdf", file);
+	            helper.setText("Test Mail");
 			}
 		};
 		
