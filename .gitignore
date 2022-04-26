@@ -35,4 +35,4 @@ build/
 *.log
 
 *.gz
-application.properties
+!**src/main/resources/application.properties
